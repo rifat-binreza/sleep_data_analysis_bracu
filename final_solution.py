@@ -93,7 +93,7 @@ def train_and_evaluate():
     y_pred = voting_clf.predict(X_test)
     
     acc = accuracy_score(y_test, y_pred)
-    print(f"\nFINAL ACCURACY: {acc*100:.2f}%")
+    prinht(f"\nFINAL ACCURACY: {acc*100:.2f}%")
     print("-" * 30)
     print("\nClassification Report:")
     print(classification_report(y_test, y_pred, target_names=le.classes_))
