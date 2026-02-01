@@ -3780,3 +3780,1080 @@ ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. 
 2026-02-01 23:09:08,710:INFO:Gradient Boosting Classifier Imported successfully
 2026-02-01 23:09:08,718:INFO:Starting cross validation
 2026-02-01 23:09:08,720:INFO:Cross validating with StratifiedKFold(n_splits=10, random_state=None, shuffle=False), n_jobs=-1
+2026-02-01 23:09:09,375:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,376:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,377:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,378:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,378:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,378:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,380:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,380:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,380:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,381:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,383:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,384:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,384:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,385:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,386:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,387:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,388:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,388:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,389:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,389:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,390:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,390:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,392:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,393:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,394:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,395:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,396:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,398:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,399:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,400:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,403:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,405:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,407:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,408:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,411:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,413:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,428:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,429:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,431:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,434:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,444:INFO:Calculating mean and std
+2026-02-01 23:09:09,446:INFO:Creating metrics dataframe
+2026-02-01 23:09:09,449:INFO:Uploading results into container
+2026-02-01 23:09:09,450:INFO:Uploading model into container now
+2026-02-01 23:09:09,450:INFO:_master_model_container: 10
+2026-02-01 23:09:09,450:INFO:_display_container: 2
+2026-02-01 23:09:09,451:INFO:GradientBoostingClassifier(ccp_alpha=0.0, criterion='friedman_mse', init=None,
+                           learning_rate=0.1, loss='log_loss', max_depth=3,
+                           max_features=None, max_leaf_nodes=None,
+                           min_impurity_decrease=0.0, min_samples_leaf=1,
+                           min_samples_split=2, min_weight_fraction_leaf=0.0,
+                           n_estimators=100, n_iter_no_change=None,
+                           random_state=12, subsample=1.0, tol=0.0001,
+                           validation_fraction=0.1, verbose=0,
+                           warm_start=False)
+2026-02-01 23:09:09,451:INFO:create_model() successfully completed......................................
+2026-02-01 23:09:09,558:INFO:SubProcess create_model() end ==================================
+2026-02-01 23:09:09,558:INFO:Creating metrics dataframe
+2026-02-01 23:09:09,566:INFO:Initializing Linear Discriminant Analysis
+2026-02-01 23:09:09,566:INFO:Total runtime is 0.2391371210416158 minutes
+2026-02-01 23:09:09,569:INFO:SubProcess create_model() called ==================================
+2026-02-01 23:09:09,570:INFO:Initializing create_model()
+2026-02-01 23:09:09,570:INFO:create_model(self=<pycaret.classification.oop.ClassificationExperiment object at 0x0000027B8AE03350>, estimator=lda, fold=StratifiedKFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, probability_threshold=None, experiment_custom_tags=None, verbose=False, system=False, add_to_model_list=True, metrics=None, display=<pycaret.internal.display.display.CommonDisplay object at 0x0000027B8ADF7050>, model_only=True, return_train_score=False, error_score=0.0, kwargs={})
+2026-02-01 23:09:09,570:INFO:Checking exceptions
+2026-02-01 23:09:09,570:INFO:Importing libraries
+2026-02-01 23:09:09,570:INFO:Copying training dataset
+2026-02-01 23:09:09,573:INFO:Defining folds
+2026-02-01 23:09:09,573:INFO:Declaring metric variables
+2026-02-01 23:09:09,577:INFO:Importing untrained model
+2026-02-01 23:09:09,581:INFO:Linear Discriminant Analysis Imported successfully
+2026-02-01 23:09:09,586:INFO:Starting cross validation
+2026-02-01 23:09:09,589:INFO:Cross validating with StratifiedKFold(n_splits=10, random_state=None, shuffle=False), n_jobs=-1
+2026-02-01 23:09:09,749:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,751:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,751:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,752:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,753:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,754:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,755:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,756:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,757:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,757:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,757:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,757:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,758:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,758:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,759:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,760:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,760:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,760:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,760:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,762:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,763:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,764:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,765:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,766:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,766:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,768:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,768:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,770:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,772:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,774:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,774:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,777:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,780:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,783:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py:204: FitFailedWarning: Metric 'make_scorer(roc_auc_score, response_method=('decision_function', 'predict_proba'), average=weighted, multi_class=ovr)' failed and error score 0.0 has been returned instead. If this is a custom metric, this usually means that the error is in the metric code. Full exception below:
+Traceback (most recent call last):
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 196, in _score
+    return super()._score(
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_scorer.py", line 350, in _score
+    return self._sign * self._score_func(y_true, y_pred, **scoring_kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\metrics.py", line 144, in __call__
+    return self.score_func(y_true, y_pred, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 634, in roc_auc_score
+    return _multiclass_roc_auc_score(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_ranking.py", line 707, in _multiclass_roc_auc_score
+    raise ValueError(
+ValueError: Target scores need to be probabilities for multiclass roc_auc, i.e. they should sum up to 1.0 over classes
+
+  warnings.warn(
+
+2026-02-01 23:09:09,784:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,787:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,789:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:09,800:INFO:Calculating mean and std
+2026-02-01 23:09:09,801:INFO:Creating metrics dataframe
+2026-02-01 23:09:09,803:INFO:Uploading results into container
+2026-02-01 23:09:09,803:INFO:Uploading model into container now
+2026-02-01 23:09:09,804:INFO:_master_model_container: 11
+2026-02-01 23:09:09,804:INFO:_display_container: 2
+2026-02-01 23:09:09,805:INFO:LinearDiscriminantAnalysis(covariance_estimator=None, n_components=None,
+                           priors=None, shrinkage=None, solver='svd',
+                           store_covariance=False, tol=0.0001)
+2026-02-01 23:09:09,805:INFO:create_model() successfully completed......................................
+2026-02-01 23:09:09,919:INFO:SubProcess create_model() end ==================================
+2026-02-01 23:09:09,919:INFO:Creating metrics dataframe
+2026-02-01 23:09:09,928:INFO:Initializing Extra Trees Classifier
+2026-02-01 23:09:09,928:INFO:Total runtime is 0.24517350594202678 minutes
+2026-02-01 23:09:09,933:INFO:SubProcess create_model() called ==================================
+2026-02-01 23:09:09,934:INFO:Initializing create_model()
+2026-02-01 23:09:09,935:INFO:create_model(self=<pycaret.classification.oop.ClassificationExperiment object at 0x0000027B8AE03350>, estimator=et, fold=StratifiedKFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, probability_threshold=None, experiment_custom_tags=None, verbose=False, system=False, add_to_model_list=True, metrics=None, display=<pycaret.internal.display.display.CommonDisplay object at 0x0000027B8ADF7050>, model_only=True, return_train_score=False, error_score=0.0, kwargs={})
+2026-02-01 23:09:09,935:INFO:Checking exceptions
+2026-02-01 23:09:09,935:INFO:Importing libraries
+2026-02-01 23:09:09,935:INFO:Copying training dataset
+2026-02-01 23:09:09,941:INFO:Defining folds
+2026-02-01 23:09:09,941:INFO:Declaring metric variables
+2026-02-01 23:09:09,946:INFO:Importing untrained model
+2026-02-01 23:09:09,951:INFO:Extra Trees Classifier Imported successfully
+2026-02-01 23:09:09,962:INFO:Starting cross validation
+2026-02-01 23:09:09,964:INFO:Cross validating with StratifiedKFold(n_splits=10, random_state=None, shuffle=False), n_jobs=-1
+2026-02-01 23:09:10,592:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,595:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,600:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,601:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,602:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,603:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,604:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,604:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,605:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,607:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,608:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,609:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,610:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,610:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,611:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,612:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,609:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,616:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,619:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,621:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,625:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,625:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,625:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,627:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,627:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,630:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,633:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,637:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,640:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:10,646:INFO:Calculating mean and std
+2026-02-01 23:09:10,647:INFO:Creating metrics dataframe
+2026-02-01 23:09:10,651:INFO:Uploading results into container
+2026-02-01 23:09:10,652:INFO:Uploading model into container now
+2026-02-01 23:09:10,653:INFO:_master_model_container: 12
+2026-02-01 23:09:10,653:INFO:_display_container: 2
+2026-02-01 23:09:10,654:INFO:ExtraTreesClassifier(bootstrap=False, ccp_alpha=0.0, class_weight=None,
+                     criterion='gini', max_depth=None, max_features='sqrt',
+                     max_leaf_nodes=None, max_samples=None,
+                     min_impurity_decrease=0.0, min_samples_leaf=1,
+                     min_samples_split=2, min_weight_fraction_leaf=0.0,
+                     monotonic_cst=None, n_estimators=100, n_jobs=-1,
+                     oob_score=False, random_state=12, verbose=0,
+                     warm_start=False)
+2026-02-01 23:09:10,654:INFO:create_model() successfully completed......................................
+2026-02-01 23:09:10,788:INFO:SubProcess create_model() end ==================================
+2026-02-01 23:09:10,789:INFO:Creating metrics dataframe
+2026-02-01 23:09:10,798:INFO:Initializing Light Gradient Boosting Machine
+2026-02-01 23:09:10,798:INFO:Total runtime is 0.25967288414637246 minutes
+2026-02-01 23:09:10,802:INFO:SubProcess create_model() called ==================================
+2026-02-01 23:09:10,803:INFO:Initializing create_model()
+2026-02-01 23:09:10,803:INFO:create_model(self=<pycaret.classification.oop.ClassificationExperiment object at 0x0000027B8AE03350>, estimator=lightgbm, fold=StratifiedKFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, probability_threshold=None, experiment_custom_tags=None, verbose=False, system=False, add_to_model_list=True, metrics=None, display=<pycaret.internal.display.display.CommonDisplay object at 0x0000027B8ADF7050>, model_only=True, return_train_score=False, error_score=0.0, kwargs={})
+2026-02-01 23:09:10,803:INFO:Checking exceptions
+2026-02-01 23:09:10,803:INFO:Importing libraries
+2026-02-01 23:09:10,803:INFO:Copying training dataset
+2026-02-01 23:09:10,808:INFO:Defining folds
+2026-02-01 23:09:10,809:INFO:Declaring metric variables
+2026-02-01 23:09:10,813:INFO:Importing untrained model
+2026-02-01 23:09:10,818:INFO:Light Gradient Boosting Machine Imported successfully
+2026-02-01 23:09:10,828:INFO:Starting cross validation
+2026-02-01 23:09:10,831:INFO:Cross validating with StratifiedKFold(n_splits=10, random_state=None, shuffle=False), n_jobs=-1
+2026-02-01 23:09:11,705:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,709:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,715:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,730:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,735:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,739:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,779:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,783:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,787:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,827:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,831:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,835:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,890:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,895:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,899:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,910:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,914:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,919:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,941:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,945:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,947:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,950:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,951:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,954:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,989:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,992:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:11,996:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,030:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,035:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,038:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,050:INFO:Calculating mean and std
+2026-02-01 23:09:12,052:INFO:Creating metrics dataframe
+2026-02-01 23:09:12,056:INFO:Uploading results into container
+2026-02-01 23:09:12,057:INFO:Uploading model into container now
+2026-02-01 23:09:12,058:INFO:_master_model_container: 13
+2026-02-01 23:09:12,058:INFO:_display_container: 2
+2026-02-01 23:09:12,059:INFO:LGBMClassifier(boosting_type='gbdt', class_weight=None, colsample_bytree=1.0,
+               importance_type='split', learning_rate=0.1, max_depth=-1,
+               min_child_samples=20, min_child_weight=0.001, min_split_gain=0.0,
+               n_estimators=100, n_jobs=-1, num_leaves=31, objective=None,
+               random_state=12, reg_alpha=0.0, reg_lambda=0.0, subsample=1.0,
+               subsample_for_bin=200000, subsample_freq=0)
+2026-02-01 23:09:12,059:INFO:create_model() successfully completed......................................
+2026-02-01 23:09:12,189:INFO:SubProcess create_model() end ==================================
+2026-02-01 23:09:12,190:INFO:Creating metrics dataframe
+2026-02-01 23:09:12,199:INFO:Initializing Dummy Classifier
+2026-02-01 23:09:12,199:INFO:Total runtime is 0.28302968343098955 minutes
+2026-02-01 23:09:12,203:INFO:SubProcess create_model() called ==================================
+2026-02-01 23:09:12,204:INFO:Initializing create_model()
+2026-02-01 23:09:12,204:INFO:create_model(self=<pycaret.classification.oop.ClassificationExperiment object at 0x0000027B8AE03350>, estimator=dummy, fold=StratifiedKFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, probability_threshold=None, experiment_custom_tags=None, verbose=False, system=False, add_to_model_list=True, metrics=None, display=<pycaret.internal.display.display.CommonDisplay object at 0x0000027B8ADF7050>, model_only=True, return_train_score=False, error_score=0.0, kwargs={})
+2026-02-01 23:09:12,204:INFO:Checking exceptions
+2026-02-01 23:09:12,204:INFO:Importing libraries
+2026-02-01 23:09:12,204:INFO:Copying training dataset
+2026-02-01 23:09:12,210:INFO:Defining folds
+2026-02-01 23:09:12,210:INFO:Declaring metric variables
+2026-02-01 23:09:12,213:INFO:Importing untrained model
+2026-02-01 23:09:12,218:INFO:Dummy Classifier Imported successfully
+2026-02-01 23:09:12,225:INFO:Starting cross validation
+2026-02-01 23:09:12,228:INFO:Cross validating with StratifiedKFold(n_splits=10, random_state=None, shuffle=False), n_jobs=-1
+2026-02-01 23:09:12,364:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,367:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,369:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,371:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1509: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+
+2026-02-01 23:09:12,371:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,374:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1509: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+
+2026-02-01 23:09:12,374:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,374:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,374:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,376:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,377:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,377:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,377:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1509: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+
+2026-02-01 23:09:12,378:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1509: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+
+2026-02-01 23:09:12,379:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,380:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,381:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,382:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,384:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,385:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,386:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1509: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+
+2026-02-01 23:09:12,387:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1509: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+
+2026-02-01 23:09:12,388:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,389:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,393:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,396:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,397:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1509: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+
+2026-02-01 23:09:12,398:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,408:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,409:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,410:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,411:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1509: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+
+2026-02-01 23:09:12,411:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,412:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1509: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+
+2026-02-01 23:09:12,413:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,414:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,414:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,416:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,417:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1509: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+
+2026-02-01 23:09:12,419:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\sklearn\metrics\_classification.py:1561: UserWarning: Note that pos_label (set to 'Sleep Apnea') is ignored when average != 'binary' (got 'weighted'). You may use labels=[pos_label] to specify a single positive class.
+  warnings.warn(
+
+2026-02-01 23:09:12,429:INFO:Calculating mean and std
+2026-02-01 23:09:12,431:INFO:Creating metrics dataframe
+2026-02-01 23:09:12,433:INFO:Uploading results into container
+2026-02-01 23:09:12,433:INFO:Uploading model into container now
+2026-02-01 23:09:12,434:INFO:_master_model_container: 14
+2026-02-01 23:09:12,434:INFO:_display_container: 2
+2026-02-01 23:09:12,434:INFO:DummyClassifier(constant=None, random_state=12, strategy='prior')
+2026-02-01 23:09:12,435:INFO:create_model() successfully completed......................................
+2026-02-01 23:09:12,546:INFO:SubProcess create_model() end ==================================
+2026-02-01 23:09:12,546:INFO:Creating metrics dataframe
+2026-02-01 23:09:12,565:WARNING:c:\Users\Shuvo\sleep_data_analysis_bracu\.venv\Lib\site-packages\pycaret\internal\pycaret_experiment\supervised_experiment.py:339: FutureWarning: Styler.applymap has been deprecated. Use Styler.map instead.
+  .applymap(highlight_cols, subset=["TT (Sec)"])
+
+2026-02-01 23:09:12,574:INFO:Initializing create_model()
+2026-02-01 23:09:12,574:INFO:create_model(self=<pycaret.classification.oop.ClassificationExperiment object at 0x0000027B8AE03350>, estimator=GaussianNB(priors=None, var_smoothing=1e-09), fold=StratifiedKFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, probability_threshold=None, experiment_custom_tags=None, verbose=False, system=False, add_to_model_list=True, metrics=None, display=None, model_only=True, return_train_score=False, error_score=0.0, kwargs={})
+2026-02-01 23:09:12,574:INFO:Checking exceptions
+2026-02-01 23:09:12,576:INFO:Importing libraries
+2026-02-01 23:09:12,577:INFO:Copying training dataset
+2026-02-01 23:09:12,580:INFO:Defining folds
+2026-02-01 23:09:12,580:INFO:Declaring metric variables
+2026-02-01 23:09:12,580:INFO:Importing untrained model
+2026-02-01 23:09:12,580:INFO:Declaring custom model
+2026-02-01 23:09:12,581:INFO:Naive Bayes Imported successfully
+2026-02-01 23:09:12,582:INFO:Cross validation set to False
+2026-02-01 23:09:12,582:INFO:Fitting Model
+2026-02-01 23:09:12,641:INFO:GaussianNB(priors=None, var_smoothing=1e-09)
+2026-02-01 23:09:12,641:INFO:create_model() successfully completed......................................
+2026-02-01 23:09:12,774:INFO:_master_model_container: 14
+2026-02-01 23:09:12,775:INFO:_display_container: 2
+2026-02-01 23:09:12,775:INFO:GaussianNB(priors=None, var_smoothing=1e-09)
+2026-02-01 23:09:12,775:INFO:compare_models() successfully completed......................................
