@@ -220,4 +220,4 @@ with gr.Blocks(title="Sleep Disorder Prediction (Stacking Model)") as demo:
 
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(share="True")
