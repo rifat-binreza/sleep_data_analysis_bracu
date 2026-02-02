@@ -103,3 +103,6 @@ widgetsnbextension==4.0.15
 xxhash==3.6.0
 yellowbrick==1.5
 zipp==3.23.0
+gradio
+huggingface_hub
+xgboost
