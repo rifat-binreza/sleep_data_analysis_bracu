@@ -53,7 +53,7 @@ def _clean_dataset(df: pd.DataFrame) -> pd.DataFrame:
     
     # Feature engineering: Age groups
     if "Age" in df.columns:
-        df["Age_Group"] = pd.cut(df["Age"], bins=[0, 30, 40, 50, 100], labels=["Young", "Adult", "Middle", "Senior"])
+        df["Age_Group"] = pd.cut(df["Age"], bins=[0, 30, 40, 50, 100], labels=["Young", "Adult", "Middle", "Senior"]).astype(str)
     
     # Feature engineering: Sleep quality ratio
     if "Quality of Sleep" in df.columns and "Sleep Duration" in df.columns:
@@ -91,20 +91,20 @@ def _build_model(X: pd.DataFrame, y: pd.Series) -> Pipeline:
         random_state=42,
         n_jobs=-1
     )
-    xgb = XGBClassifier(
+    lgb = LGBMClassifier(
         n_estimators=300,
         learning_rate=0.03,
         max_depth=6,
-        min_child_weight=1,
+        num_leaves=31,
         subsample=0.8,
         colsample_bytree=0.8,
-        eval_metric="mlogloss",
         random_state=42,
-        n_jobs=-1
+        n_jobs=-1,
+        verbose=-1
     )
 
     stack_clf = StackingClassifier(
-        estimators=[("rf", rf), ("xgb", xgb)],
+        estimators=[("rf", rf), ("lgb", lgb)],
         final_estimator=LogisticRegression(max_iter=4000, C=1.0),
         stack_method="predict_proba",
         n_jobs=-1,
