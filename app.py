@@ -9,8 +9,10 @@ import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestClassifier, StackingClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import cross_val_score, StratifiedKFold
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
+from sklearn.metrics import accuracy_score, classification_report
 from xgboost import XGBClassifier
 
 DATA_FILE = "Sleep_health_and_lifestyle_dataset (1).csv"
@@ -43,6 +45,23 @@ def _clean_dataset(df: pd.DataFrame) -> pd.DataFrame:
 
     if "Sleep Disorder" in df.columns:
         df["Sleep Disorder"] = df["Sleep Disorder"].fillna("None")
+    
+    # Feature engineering: BMI risk score
+    if "BMI Category" in df.columns:
+        bmi_risk = {"Normal": 0, "Overweight": 1, "Obese": 2}
+        df["BMI_Risk_Score"] = df["BMI Category"].map(bmi_risk).fillna(0)
+    
+    # Feature engineering: Age groups
+    if "Age" in df.columns:
+        df["Age_Group"] = pd.cut(df["Age"], bins=[0, 30, 40, 50, 100], labels=["Young", "Adult", "Middle", "Senior"])
+    
+    # Feature engineering: Sleep quality ratio
+    if "Quality of Sleep" in df.columns and "Sleep Duration" in df.columns:
+        df["Sleep_Efficiency"] = df["Quality of Sleep"] / df["Sleep Duration"]
+    
+    # Feature engineering: Stress-Physical activity balance
+    if "Stress Level" in df.columns and "Physical Activity Level" in df.columns:
+        df["Stress_Activity_Ratio"] = df["Stress Level"] / (df["Physical Activity Level"] + 1)
 
     return df
 
@@ -64,20 +83,32 @@ def _build_preprocessor(X: pd.DataFrame) -> Tuple[ColumnTransformer, List[str], 
 def _build_model(X: pd.DataFrame, y: pd.Series) -> Pipeline:
     preprocessor, _, _ = _build_preprocessor(X)
 
-    rf = RandomForestClassifier(n_estimators=200, random_state=42)
+    rf = RandomForestClassifier(
+        n_estimators=300,
+        max_depth=10,
+        min_samples_split=5,
+        min_samples_leaf=2,
+        random_state=42,
+        n_jobs=-1
+    )
     xgb = XGBClassifier(
-        n_estimators=200,
-        learning_rate=0.05,
-        max_depth=5,
+        n_estimators=300,
+        learning_rate=0.03,
+        max_depth=6,
+        min_child_weight=1,
+        subsample=0.8,
+        colsample_bytree=0.8,
         eval_metric="mlogloss",
         random_state=42,
+        n_jobs=-1
     )
 
     stack_clf = StackingClassifier(
         estimators=[("rf", rf), ("xgb", xgb)],
-        final_estimator=LogisticRegression(max_iter=4000),
+        final_estimator=LogisticRegression(max_iter=4000, C=1.0),
         stack_method="predict_proba",
         n_jobs=-1,
+        cv=StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     )
 
     model = Pipeline(
