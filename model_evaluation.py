@@ -29,7 +29,7 @@ df_clean.drop(columns=["Blood Pressure"], inplace=True)
 # Advanced feature engineering
 bmi_risk = {"Normal": 0, "Overweight": 1, "Obese": 2}
 df_clean["BMI_Risk_Score"] = df_clean["BMI Category"].map(bmi_risk).fillna(0)
-df_clean["Age_Group"] = pd.cut(df_clean["Age"], bins=[0, 30, 40, 50, 100], labels=["Young", "Adult", "Middle", "Senior"])
+df_clean["Age_Group"] = pd.cut(df_clean["Age"], bins=[0, 30, 40, 50, 100], labels=["Young", "Adult", "Middle", "Senior"]).astype(str)
 df_clean["Sleep_Efficiency"] = df_clean["Quality of Sleep"] / df_clean["Sleep Duration"]
 df_clean["Stress_Activity_Ratio"] = df_clean["Stress Level"] / (df_clean["Physical Activity Level"] + 1)
 
