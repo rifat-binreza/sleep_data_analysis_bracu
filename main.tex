@@ -74,7 +74,7 @@ For structured data, tree-based ensembles remain competitive because they accomm
 \draw[arrow] (p)--(m);
 \draw[arrow] (m)--(e);
 \end{tikzpicture}
-\caption{Analytical workflow of the proposed risk-stratification framework. The held-out test partition remains isolated from preprocessing, model fitting, and meta-learner construction.}
+\caption{Study design and analytical workflow. The held-out test partition remains isolated from feature transformation, base-learner estimation, and meta-learner construction until final evaluation.}
 \label{fig:workflow}
 \end{figure}
 
@@ -93,7 +93,7 @@ Person ID was excluded because it contains ordering information without a plausi
 
 \begin{table}[t]
 \centering
-\caption{Cohort and variable characteristics used for model development.}
+\caption{Descriptive characteristics of the 374 observations used for model development and evaluation.}
 \label{tab:datasetprofile}
 \small
 \begin{tabular}{p{0.32\linewidth}p{0.22\linewidth}p{0.32\linewidth}}
@@ -115,7 +115,7 @@ Categorical cardinality & Gender 2; Occupation 11; BMI 4 & One-hot encoded after
 
 \begin{table}[t]
 \centering
-\caption{Variable audit and representation used by the pipeline.}
+\caption{Predictor groups, representative variables, and their computational treatment within the modelling pipeline.}
 \label{tab:variables}
 \small
 \begin{tabular}{p{0.24\linewidth}p{0.25\linewidth}p{0.42\linewidth}}
@@ -144,7 +144,7 @@ Target & Sleep Disorder & Label encoding into three classes \\
 \node[above,font=\scriptsize] at (1.0,219){219};\node[above,font=\scriptsize] at (2.2,77){77};\node[above,font=\scriptsize] at (3.4,78){78};
 \node[below,align=center,font=\scriptsize] at (1.0,0){No recorded\\disorder};\node[below,font=\scriptsize] at (2.2,0){Insomnia};\node[below,font=\scriptsize] at (3.4,0){Sleep Apnea};
 \end{tikzpicture}
-\caption{Outcome distribution following assignment of blank entries to no recorded disorder.}
+\caption{Outcome distribution after harmonisation. Blank outcome entries were assigned to no recorded disorder, yielding 219 observations with no recorded disorder, 77 with insomnia, and 78 with sleep apnea.}
 \label{fig:distribution}
 \end{figure}
 
@@ -158,7 +158,7 @@ Target & Sleep Disorder & Label encoding into three classes \\
 \draw[arrow] (r)--(n); \draw[arrow] (r)--(i); \draw[arrow] (r)--(s);
 \node[below=8mm of i,align=center,font=\small] {Three-class screening target\\not a clinical diagnostic label};
 \end{tikzpicture}
-\caption{Outcome harmonisation and the boundary between analytical labels and clinical diagnoses.}
+\caption{Operational construction of the three-class outcome. The resulting labels support benchmark classification and should not be interpreted as independently adjudicated clinical diagnoses.}
 \label{fig:target}
 \end{figure}
 
@@ -166,7 +166,7 @@ Target & Sleep Disorder & Label encoding into three classes \\
 An 80:20 stratified partition with random seed 42 produced a development set of 299 observations and an independent test set of 75 observations. The split was performed before numerical scaling, categorical encoding, or model fitting. All preprocessing parameters---including numerical means and variances, categorical vocabularies, and label mappings---were estimated from the development data and subsequently applied without modification to the test set. The same principle was maintained within cross-validation folds used to construct the stack. This ordering prevents evaluation-set information from influencing either the feature representation or the fitted decision function \cite{stats2024,kapoor2023}.
 
 \begin{algorithm}[t]
-\caption{Leakage-safe data preparation}
+\caption{Leakage-controlled preparation of development and test partitions}
 \label{alg:prep}
 \begin{algorithmic}[1]
 \Require Dataset $D$, target $y$, seed $s=42$
@@ -196,7 +196,7 @@ An 80:20 stratified partition with random seed 42 produced a development set of 
 \draw[arrow] (cat)--(out);
 \node[below=4mm of out,align=center,text width=105mm,font=\footnotesize] {The transformer is estimated on the development partition and applied unchanged to the held-out test partition.};
 \end{tikzpicture}
-\caption{Leakage-controlled feature engineering and representation pipeline.}
+\caption{Leakage-controlled feature-engineering pipeline. Numerical and categorical transformations are estimated exclusively from the development partition and applied unchanged to the held-out test partition.}
 \label{fig:preprocess}
 \end{figure}
 
@@ -205,7 +205,7 @@ The proposed architecture combines two tree-based learners with complementary bi
 
 \begin{table}[t]
 \centering
-\caption{Hyperparameter configuration of the proposed stacking model.}
+\caption{Hyperparameter configuration of the Random Forest and XGBoost base learners, logistic-regression meta-learner, and validation split.}
 \label{tab:hyper}
 \small
 \begin{tabular}{lll}
@@ -235,13 +235,14 @@ Validation & split / seed & 80:20 stratified / 42 \\
 \node[box,below=of meta] (y) {Class probability and label};
 \draw[arrow] (x)--(rf);\draw[arrow] (x)--(xgb);\draw[arrow] (rf)--(meta);\draw[arrow] (xgb)--(meta);\draw[arrow] (meta)--(y);
 \end{tikzpicture}
-\caption{Stacking architecture with complementary base learners.}
+\caption{Proposed heterogeneous stacking architecture. Random Forest and XGBoost generate class-probability vectors that are concatenated and passed to a logistic-regression meta-learner.}
 \label{fig:stack}
 \end{figure}
 
 \begin{algorithm}[t]
-\caption{Out-of-fold stacking prediction}
+\caption{Out-of-fold stacking for training and inference}
 \label{alg:stack}
+\small
 \begin{algorithmic}[1]
 \Require $(X'_{tr},y_{tr})$, test vector $x$, $K=5$ folds
 \Ensure Predicted class $\hat y$
@@ -260,14 +261,14 @@ Validation & split / seed & 80:20 stratified / 42 \\
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}[node distance=5mm and 5mm]
-\node[box] (d) {Training partition};
-\node[box,right=of d] (f) {Fold 1--5};
-\node[box,right=of f] (o) {Out-of-fold probabilities};
-\node[box,right=of o] (l) {Fit meta-learner};
+\node[box] (d) {Development partition};
+\node[box,right=of d] (f) {Five stratified folds};
+\node[box,right=of f] (o) {Out-of-fold RF--XGBoost probabilities};
+\node[box,right=of o] (l) {Fit logistic meta-learner};
 \draw[arrow] (d)--(f);\draw[arrow] (f)--(o);\draw[arrow] (o)--(l);
-\draw[arrow] (l.south) -- ++(0,-7mm) -| node[pos=.25,below,font=\scriptsize]{final prediction} (d.south);
+\node[below=6mm of o,align=center,text width=95mm,font=\footnotesize] {Each development observation is predicted only by base learners that excluded it during fitting.};
 \end{tikzpicture}
-\caption{Cross-validation role in fitting the second-level learner.}
+\caption{Construction of the meta-learner training matrix. Out-of-fold probabilities prevent the second-level model from being fitted to in-sample base-learner predictions.}
 \label{fig:oof}
 \end{figure}
 
@@ -279,7 +280,7 @@ I_j=\frac{1}{n}\sum_{i=1}^{n}|\phi_{ij}|,
 where $\phi_{ij}$ denotes the attribution assigned to feature $j$ for observation $i$. LIME was used as a complementary local analysis: neighbourhoods were generated around individual test observations, the ensemble was queried on the perturbed samples, and an interpretable weighted linear surrogate approximated the local decision surface. Absolute LIME coefficients were aggregated only to assess broad agreement with SHAP rankings; they were not treated as a second estimate of causal importance. Both methods characterise the fitted prediction function, and correlated predictors may share or exchange attribution \cite{xaisurvey2023,explain2024,dependence2023}.
 
 \begin{algorithm}[t]
-\caption{Permutation-SHAP model audit}
+\caption{Permutation-SHAP procedure for global model auditing}
 \label{alg:shap}
 \begin{algorithmic}[1]
 \Require Fitted model $F$, training matrix $X_{tr}$, explanation sample $X_e$
@@ -304,7 +305,7 @@ where $\phi_{ij}$ denotes the attribution assigned to feature $j$ for observatio
 \node[box,below=of q] (r) {Mean $|\phi|$ ranking};
 \draw[arrow] (f)--(q);\draw[arrow] (b)--(p);\draw[arrow] (p)--(q);\draw[arrow] (q)--(r);
 \end{tikzpicture}
-\caption{Model-agnostic explanation pathway.}
+\caption{Model-agnostic explanation workflow. Perturbations are evaluated through the complete fitted pipeline and aggregated as mean absolute feature attributions.}
 \label{fig:shap}
 \end{figure}
 
@@ -318,7 +319,7 @@ The proposed stacking model correctly classified 73 of 75 test observations, yie
 
 \begin{table}[t]
 \centering
-\caption{Recorded class-wise performance on the 75-observation hold-out set.}
+\caption{Class-specific and aggregate predictive performance of the proposed stack on the 75-observation hold-out set.}
 \label{tab:metrics}
 \small
 \begin{tabular}{lrrrr}
@@ -345,7 +346,7 @@ Across the five ensemble configurations in Table~\ref{tab:basecomparison}, the p
 
 \begin{table}[H]
 \centering
-\caption{Accuracy comparison of the proposed approach with ensemble baselines; ANN results are from \cite{alom2024}.}
+\caption{Descriptive accuracy comparison between the proposed RF--XGBoost stack and ensemble baselines. ANN results were reported by Alom et al. \cite{alom2024}.}
 \label{tab:basecomparison}
 \small
 \begin{tabularx}{0.74\linewidth}{@{}X c@{}}
@@ -366,7 +367,7 @@ Because stacking and soft voting were evaluated on identical test observations, 
 
 \begin{table}[H]
 \centering
-\caption{Paired uncertainty analysis on the shared 75-record test set.}
+\caption{Paired uncertainty analysis comparing RF--XGBoost stacking with soft voting on the same 75 test observations.}
 \label{tab:stats}
 \small
 \begin{tabular}{p{0.47\linewidth}p{0.30\linewidth}}
@@ -386,14 +387,14 @@ Interpretation & Descriptive improvement; external validation required \\
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.94\linewidth]{confusion_matrices.png}
-\caption{Confusion matrices for RF--XGBoost soft voting (left) and the proposed stacking model (right) on the common 75-observation test set.}
+\caption{Confusion matrices on the common 75-observation test set: (a) RF--XGBoost soft voting and (b) the proposed RF--XGBoost stack. Rows denote reference outcomes and columns denote predicted outcomes.}
 \label{fig:confusions}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.88\linewidth]{model_comparison.png}
-\caption{Accuracy comparison of ANN ensembles, RF--XGBoost soft voting, and the proposed RF--XGBoost stacking model.}
+\caption{Descriptive accuracy comparison across five ensemble configurations. ANN values were obtained from Alom et al. \cite{alom2024}; soft-voting and stacking values were estimated on the present hold-out set and are therefore not a matched external comparison.}
 \label{fig:modelcomparison}
 \end{figure}
 
@@ -402,8 +403,8 @@ Global SHAP analysis of the RF--XGBoost soft-voting comparator identified systol
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.92\linewidth]{voting_shap_importance.png}
-\caption{Global feature importance for the RF--XGBoost soft-voting comparator, expressed as mean absolute SHAP values across the explanation sample.}
+\includegraphics[width=\linewidth]{voting_shap_importance.png}
+\caption{Global model dependence of the RF--XGBoost soft-voting comparator, quantified by mean absolute SHAP values across the explanation sample. Larger values indicate greater average influence on model output, irrespective of direction.}
 \label{fig:votingshap}
 \end{figure}
 
@@ -411,15 +412,15 @@ The LIME explanation in Fig.~\ref{fig:votinglime} characterises the local decisi
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.80\linewidth]{voting_lime_sample0.png}
-\caption{Local LIME explanation for a representative test observation classified as insomnia by the RF--XGBoost soft-voting comparator. Green bars increase and red bars decrease the local class score.}
+\includegraphics[width=0.58\linewidth]{voting_lime_sample0.png}
+\caption{Local LIME explanation for one test observation classified as insomnia by the RF--XGBoost soft-voting comparator. Green bars increase and red bars decrease the local insomnia score; magnitudes are specific to this observation.}
 \label{fig:votinglime}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.78\linewidth]{shap_lime_radar.png}
-\caption{Comparison of normalised global SHAP importance and aggregated absolute LIME weights. The values describe model dependence and should not be interpreted causally.}
+\caption{Cross-method comparison of normalised global SHAP importance and aggregated absolute LIME weights. Agreement reflects consistency in model dependence across explanation methods and does not establish causal relevance.}
 \label{fig:shaplime}
 \end{figure}
 
@@ -435,7 +436,7 @@ SHAP and LIME add complementary views of model behaviour, but neither resolves c
 
 \begin{table}[H]
 \centering
-\caption{Reproducibility and clinical-translation checklist.}
+\caption{Reproducibility and clinical-translation requirements, current study status, and actions required before prospective evaluation.}
 \label{tab:checklist}
 \footnotesize
 \renewcommand{\arraystretch}{1.12}
