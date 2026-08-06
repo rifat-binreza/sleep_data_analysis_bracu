@@ -14,6 +14,8 @@
 \usepackage{xurl}
 \usepackage[hidelinks]{hyperref}
 \urlstyle{same}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 
 \definecolor{navy}{HTML}{17324D}
 \definecolor{teal}{HTML}{087F8C}
@@ -106,7 +108,7 @@ and every estimated parameter is a function of $\mathcal{D}_{tr}$ only. For nume
 \mu^{(tr)}_j=\frac{1}{n_{tr}}\sum_{i\in\mathcal{D}_{tr}}x_{ij},
 \label{eq:standardise}
 \end{equation}
-whereas a categorical level $a_q$ is represented by $o_{iq}=\mathbb{I}(x_{ij}=a_q)$. Thus, the fitted transformer $T_{\widehat{\theta}_{tr}}$ produces the fixed-schema vector $\mathbf{x}'_i=T_{\widehat{\theta}_{tr}}(\mathbf{x}_i)$ for both partitions without re-estimating $\widehat{\theta}_{tr}$ on test observations.
+where $\sigma^{(tr)}_j$ is the sample standard deviation estimated from $\mathcal{D}_{tr}$. A categorical level $a_q$ is represented by $o_{iq}=\mathbb{I}(x_{ij}=a_q)$. Consequently, the fitted transformer $T_{\widehat{\theta}_{tr}}$ maps each observation to the fixed-schema vector $\mathbf{x}'_i=T_{\widehat{\theta}_{tr}}(\mathbf{x}_i)$, with neither the scale parameters nor the categorical vocabulary re-estimated on the test partition.
 
 \subsection{Data source and outcome definition}
 The analysis used the publicly available Sleep Health and Lifestyle Dataset hosted on Kaggle \cite{kaggle2023}. The dataset comprises 374 participant-level observations and 13 variables: one administrative identifier, 11 candidate predictors, and the Sleep Disorder outcome. The predictors represent demographic characteristics, sleep behaviour, physical activity, perceived stress, body-mass category, heart rate, and blood pressure. Because the data were not collected as a prospectively recruited clinical cohort and the outcome was not independently adjudicated, the dataset is treated as a methodological benchmark for risk stratification rather than as a source of prevalence estimates or diagnostic ground truth.
@@ -122,21 +124,23 @@ Person ID was excluded because it contains ordering information without a plausi
 \caption{Descriptive characteristics of the 374 observations used for model development and evaluation.}
 \label{tab:datasetprofile}
 \small
-\begin{tabular}{p{0.32\linewidth}p{0.22\linewidth}p{0.32\linewidth}}
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\textwidth}{@{}L{0.25\textwidth}L{0.27\textwidth}Y@{}}
 \toprule
 Profile item & Observed value & Interpretation \\
 \midrule
-Records / columns & 374 / 13 & Person-level tabular benchmark \\
-Predictors & 11 & Mixed numerical and categorical fields \\
-Outcome completeness & 155 labelled, 219 blank & Blank outcomes assigned to no recorded disorder \\
-Outcome distribution & No recorded disorder 219; insomnia 77; sleep apnea 78 & Unequal class frequencies \\
-Age & 27--59 years; mean 42.18 & Demographic predictor \\
-Sleep Duration & 5.8--8.5 h; mean 7.13 h & Self-reported sleep behaviour \\
-Heart Rate & 65--86 bpm; mean 70.17 bpm & Physiological indicator \\
-Daily Steps & 3,000--10,000; mean 6,816.84 & Activity indicator \\
-Categorical cardinality & Gender 2; Occupation 11; BMI 4 & One-hot encoded after harmonisation \\
+Records and variables & 374 records; 13 variables & Person-level tabular benchmark \\
+Candidate predictors & 11 & Mixed numerical and categorical fields \\
+Outcome completeness & 155 labelled; 219 blank & Blank entries mapped to no recorded disorder \\
+Class distribution & No recorded disorder, 219; insomnia, 77; sleep apnea, 78 & Unequal class frequencies \\
+Age & 27--59 years; mean, 42.18 & Demographic predictor \\
+Sleep duration & 5.8--8.5 h; mean, 7.13 h & Self-reported sleep behaviour \\
+Heart rate & 65--86 bpm; mean, 70.17 bpm & Physiological indicator \\
+Daily steps & 3,000--10,000; mean, 6,816.84 & Activity indicator \\
+Categorical levels & Gender, 2; occupation, 11; BMI, 4 & Harmonised before one-hot encoding \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \begin{table}[t]
@@ -298,20 +302,20 @@ Validation & split / seed & 80:20 stratified / 42 \\
 
 \begin{figure}[H]
 \centering
-\begin{tikzpicture}[node distance=9mm and 13mm]
+\begin{tikzpicture}[node distance=8mm and 12mm]
 \node[box] (x) {Encoded feature vector $x'$};
 \node[box,below left=of x] (rf) {Random Forest\\$p_{RF}(x')$};
 \node[box,below right=of x] (xgb) {XGBoost\\$p_{XGB}(x')$};
-\node[box,below=17mm of x] (meta) {Logistic meta-learner\\$g([x',p_{RF},p_{XGB}])$};
+\node[box,below=16mm of x] (meta) {Logistic meta-learner\\$g([x',p_{RF},p_{XGB}])$};
 \node[box,below=of meta] (y) {Class probability and label};
 \draw[arrow] (x)--(rf);\draw[arrow] (x)--(xgb);\draw[arrow] (rf)--(meta);\draw[arrow] (xgb)--(meta);\draw[arrow,dashed] (x)--node[right,font=\scriptsize]{pass-through} (meta);\draw[arrow] (meta)--(y);
 \end{tikzpicture}
-\caption{Proposed heterogeneous stacking architecture. Out-of-fold Random Forest and XGBoost class probabilities are concatenated with the encoded predictor vector through the implemented pass-through connection and supplied to the logistic-regression meta-learner.}
+\caption{Architecture of the proposed heterogeneous stack. Out-of-fold Random Forest and XGBoost class-probability vectors are concatenated with the encoded predictors through the pass-through connection; the logistic meta-learner then estimates the final multiclass probabilities.}
 \label{fig:stack}
 \end{figure}
 
 \begin{algorithm}[H]
-\caption{Out-of-fold stacking for training and inference}
+\caption{Leakage-controlled out-of-fold stacking and held-out inference}
 \label{alg:stack}
 \small
 \begin{algorithmic}[1]
@@ -399,7 +403,7 @@ where $\Omega(g)$ penalises surrogate complexity. Absolute LIME coefficients wer
 \FloatBarrier
 
 \section{Experimental protocol}
-The prespecified evaluation used the isolated 75-observation test partition. Accuracy was reported alongside class-specific precision, recall, and F1 score, as well as macro- and support-weighted summaries. For class $c$, the principal relationships were
+The evaluation used the isolated 75-observation test partition. Accuracy was reported alongside class-specific precision, recall, and F1 score, as well as macro- and support-weighted summaries. For class $c$, the principal relationships were
 \begin{equation}
 \begin{aligned}
 P_c&=\frac{TP_c}{TP_c+FP_c}, &
