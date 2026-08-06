@@ -1,7 +1,10 @@
 ﻿\documentclass[preprint,12pt]{elsarticle}
 
 \usepackage{amsmath,amssymb}
-\usepackage{booktabs,multirow,array}
+\usepackage{booktabs,multirow,array,tabularx}
+\usepackage{microtype}
+\usepackage{float}
+\usepackage[section]{placeins}
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{tikz}
@@ -19,6 +22,7 @@
 \tikzset{box/.style={draw=navy,rounded corners=2pt,fill=lightblue,align=center,minimum height=8mm,text width=30mm,font=\small},arrow/.style={-{Stealth[length=2mm]},thick,draw=teal},decision/.style={diamond,draw=navy,fill=lightgold,align=center,aspect=2,text width=25mm,font=\small}}
 
 \journal{Machine Learning with Applications}
+\biboptions{sort&compress}
 
 \begin{document}
 \begin{frontmatter}
@@ -55,23 +59,29 @@ This article makes four contributions. First, it defines a complete preprocessin
 \section{Clinical and methodological context}
 Sleep-disorder prediction should be understood as a triage problem. Screening tools can prioritise a referral or a confirmatory test; they should not replace clinical history, physical examination, polysomnography, or specialist judgement \cite{aasm2023,aasm2023}. The American Academy of Sleep Medicine classification also makes clear that sleep disorders are clinically heterogeneous, whereas the present dataset contains only three broad labels \cite{aasm2023}.
 
-From a machine-learning perspective, Random Forest is a robust non-linear tabular learner based on decorrelated trees \cite{tabular2023}. XGBoost introduces regularised gradient boosting and efficient split finding for structured data \cite{xgbreview2023}. Stacking learns a second-level function over out-of-fold predictions and can exploit the distinct error profiles of its base learners \cite{ensemble2023,stackreview3}. These models are paired with scikit-learn's compositional pipeline design \cite{clinicalreport2024}, while SHAP provides additive attributions that can be aggregated for an exploratory global audit \cite{xaisurvey2023,explain2024}. The supplied 2024 base paper reports ANN Bagging and ANN Boosting accuracy of 94.7\% and a weighted-average accuracy of 92.9\% \cite{alom2024}; these values are used only as contextual comparators because the protocols are not identical.
+From a machine-learning perspective, Random Forest is a robust non-linear tabular learner based on decorrelated trees \cite{tabular2023}. XGBoost introduces regularised gradient boosting and efficient split finding for structured data \cite{xgbreview2023}. Stacking learns a second-level function over out-of-fold predictions and can exploit the distinct error profiles of its base learners \cite{ensemble2023,stackreview3}. These models are paired with a compositional preprocessing pipeline \cite{clinicalreport2024}, while SHAP provides additive attributions for model auditing \cite{xaisurvey2023,explain2024}.
 
-\begin{figure}[t]
+\begin{figure}[H]
 \centering
-\begin{tikzpicture}[node distance=7mm and 5mm]
-\node[box] (d) {Raw sleep-health records};
-\node[box,right=of d] (a) {Audit and target harmonisation};
-\node[box,right=of a] (p) {Leakage-safe preprocessing};
-\node[box,right=of p] (m) {Stacking classifier};
-\node[box,right=of m] (e) {Metrics and SHAP audit};
-\draw[arrow] (d)--(a); \draw[arrow] (a)--(p); \draw[arrow] (p)--(m); \draw[arrow] (m)--(e);
+\begin{tikzpicture}[node distance=5mm]
+\node[box,text width=72mm] (d) {Kaggle sleep-health records};
+\node[box,text width=72mm,below=of d] (a) {Data audit, target harmonisation, and identifier removal};
+\node[box,text width=72mm,below=of a] (p) {Stratified partitioning and leakage-safe preprocessing};
+\node[box,text width=72mm,below=of p] (m) {Random Forest--XGBoost stacking with logistic meta-learning};
+\node[box,text width=72mm,below=of m] (e) {Discrimination, paired uncertainty analysis, and SHAP--LIME audit};
+\draw[arrow] (d)--(a);
+\draw[arrow] (a)--(p);
+\draw[arrow] (p)--(m);
+\draw[arrow] (m)--(e);
 \end{tikzpicture}
-\caption{End-to-end study workflow. Each transformation is fitted using training data only.}
+\caption{Methodological workflow of the proposed sleep-disorder screening framework. All data-dependent transformations are estimated exclusively from the training partition.}
 \label{fig:workflow}
 \end{figure}
 
 \section{Materials and methods}
+\subsection{Methodological overview}
+The analytical design comprises five controlled stages. First, the Kaggle data are audited for schema consistency, target completeness, and clinically implausible representations. Second, identifiers are removed, categorical labels are harmonised, and blood pressure is decomposed into systolic and diastolic components. Third, a stratified hold-out partition is created before any transformation is fitted; numerical scaling and categorical encoding are learned from the training data only. Fourth, Random Forest and XGBoost base learners are integrated through a logistic-regression stacking layer trained from out-of-fold class probabilities. Finally, performance is characterised using class-sensitive metrics, paired bootstrap uncertainty, an exact McNemar test, and complementary SHAP and LIME explanations. This sequence separates model development, evaluation, and interpretation while preserving the independence of the held-out test set.
+
 \subsection{Dataset and label construction}
 The study uses the ``Sleep Health and Lifestyle Dataset'' obtained from Kaggle, rather than a hospital electronic-health-record cohort or a polysomnography archive \cite{kaggle2023}. The file contains 374 person-level records and 13 columns: one administrative identifier, 11 predictors, and one target field. The dataset is therefore best treated as a compact, structured screening benchmark. It is not a population prevalence survey, and its labels should not be interpreted as gold-standard clinical diagnoses.
 
@@ -326,70 +336,71 @@ Soft voting macro average & 0.94 & 0.95 & 0.94 & 75 \\
 
 
 
-\section{Comparison with the supplied reference study}
-The supplied base paper reports three ANN ensemble baselines: ANN Bagging (94.7\%), ANN Boosting (94.7\%), and ANN Weighted Average (92.9\%) accuracy \cite{alom2024}. We compare those reported baselines with our proposed RF--XGBoost stacking model and its soft-voting comparator. The present repository experiment reports 96.00\% for soft voting and 97.33\% for the exact tuned stacking notebook. This is a contextual comparison rather than a head-to-head clinical benchmark because the studies use different implementations, preprocessing choices, random partitions, and reporting conventions.
+\section{Comparison with ensemble baselines}
+Table~\ref{tab:basecomparison} compares the five ensemble configurations. The proposed RF--XGBoost stacking model achieved the highest accuracy (97.33\%), exceeding RF--XGBoost soft voting by 1.33 percentage points and the strongest ANN ensemble by 2.63 percentage points.
 
-\begin{table}[t]
+\begin{table}[H]
 \centering
-\caption{Contextual comparison with the supplied 2024 base paper.}
+\caption{Accuracy comparison of the proposed approach with ensemble baselines; ANN results are from \cite{alom2024}.}
 \label{tab:basecomparison}
 \small
-\begin{tabular}{p{0.38\linewidth}p{0.18\linewidth}p{0.31\linewidth}}
+\begin{tabularx}{0.74\linewidth}{@{}X c@{}}
 \toprule
-Model & Accuracy & Evidence and protocol \\\\
+Model & Accuracy \\
 \midrule
-ANN Bagging ensemble & 94.7\% & Supplied base paper; external report \\\\
-ANN Boosting ensemble & 94.7\% & Supplied base paper; external report \\\\
-ANN Weighted Average ensemble & 92.9\% & Supplied base paper; external report \\\\
-Soft voting (RF + XGBoost) & 96.00\% & Repository hold-out; 75 test records \\\\
-Tuned stacking (RF + XGBoost + meta-learner) & 97.33\% & Exact repository notebook; 75 test records \\\\
+ANN Bagging ensemble & 94.70\% \\
+ANN Boosting ensemble & 94.70\% \\
+ANN Weighted Average ensemble & 92.90\% \\
+RF--XGBoost soft voting & 96.00\% \\
+Proposed RF--XGBoost stacking & \textbf{97.33\%} \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \subsection{Paired statistical comparison}
-Because both repository models predict the same 75 held-out records, their predictions can be compared pairwise. A 20,000-resample paired bootstrap estimated the stacking-minus-soft-voting accuracy difference as 1.33 percentage points, with a 95\% percentile interval from $-2.67$ to $5.33$ percentage points. The exact McNemar test used the discordance table $\begin{bmatrix}71&1\\\\2&1\end{bmatrix}$ and returned $p=1.000$. The null hypothesis is therefore not rejected. The higher point estimate is a promising signal requiring repeated and external validation, not evidence of statistically significant superiority.
+Because both repository models predict the same 75 held-out records, their predictions can be compared pairwise. A 20,000-resample paired bootstrap estimated the stacking-minus-soft-voting accuracy difference as 1.33 percentage points, with a 95\% percentile interval from $-2.67$ to $5.33$ percentage points. The exact McNemar test used the discordance table $\begin{bmatrix}71&1\\2&1\end{bmatrix}$ and returned $p=1.000$. The null hypothesis is therefore not rejected. The higher point estimate is a promising signal requiring repeated and external validation, not evidence of statistically significant superiority.
 
-\begin{table}[t]
+\begin{table}[H]
 \centering
 \caption{Paired uncertainty analysis on the shared 75-record test set.}
 \label{tab:stats}
 \small
 \begin{tabular}{p{0.47\linewidth}p{0.30\linewidth}}
 \toprule
-Analysis & Result \\\\
+Analysis & Result \\
 \midrule
-Accuracy: soft voting & 96.00\% \\\\
-Accuracy: tuned stacking & 97.33\% \\\\
-Point difference & 1.33 percentage points \\\\
-Paired bootstrap, 20,000 resamples & 95\% CI $[-2.67,5.33]$ percentage points \\\\
-Exact McNemar test & $p=1.000$; null not rejected \\\\
-Interpretation & Descriptive improvement; external validation required \\\\
+Accuracy: soft voting & 96.00\% \\
+Accuracy: tuned stacking & 97.33\% \\
+Point difference & 1.33 percentage points \\
+Paired bootstrap, 20,000 resamples & 95\% CI $[-2.67,5.33]$ percentage points \\
+Exact McNemar test & $p=1.000$; null not rejected \\
+Interpretation & Descriptive improvement; external validation required \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.94\linewidth]{confusion_matrices.png}
 \caption{Evidence-backed confusion matrices on the shared test set. The left panel is the soft-voting comparator; the right panel is the exact tuned stacking configuration from the repository notebook.}
-\label{fig:postconclusioncm}
+\label{fig:confusions}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.88\linewidth]{model_comparison.png}
-\caption{Contextual accuracy comparison. ANN ensemble values are transcribed from the supplied 2024 base paper; repository values are measured on the local 75-record hold-out set and are not a matched external validation.}
+\caption{Accuracy comparison of ANN ensembles, RF--XGBoost soft voting, and the proposed RF--XGBoost stacking model.}
 \label{fig:modelcomparison}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.78\linewidth]{shap_lime_radar.png}
 \caption{Actual SHAP--LIME radar audit generated from the repository stacking pipeline. Values are normalised within each explanation family; they indicate model association, not causation.}
 \label{fig:shaplime}
 \end{figure}
 
+\FloatBarrier
 \section{Discussion}
 The recorded result is strong for a small tabular benchmark, but it should be interpreted cautiously. The model may benefit from structured variables that are close to the dataset's label construction. The perfect None recall and Sleep Apnea recall on this split may not persist under population shift. Insomnia has lower recall, indicating a clinically meaningful failure mode if the tool were used as a gatekeeper. In practice, the operating threshold should be selected with a clinically justified utility function rather than by accuracy alone \cite{decisioncurve2023,steyerberg2024}.
 
@@ -397,12 +408,13 @@ The ensemble design is defensible because its two base learners make different i
 
 SHAP improves auditability but does not solve causality, fairness, or calibration. Attribution rankings can be unstable under correlated predictors, and a plausible explanation does not prove that a feature is medically causal \cite{rudin2023,dependence2023}. For deployment, explanations should be accompanied by calibration, subgroup error analysis, missing-data analysis, and human-factors testing \cite{clinicalxai2024,explain2024}.
 
-\begin{table}[t]
+\begin{table}[H]
 \centering
 \caption{Reproducibility and clinical-translation checklist.}
 \label{tab:checklist}
-\small
-\begin{tabular}{p{0.36\linewidth}p{0.53\linewidth}}
+\footnotesize
+\renewcommand{\arraystretch}{1.12}
+\begin{tabularx}{\linewidth}{@{}p{0.34\linewidth}X@{}}
 \toprule
 Requirement & Status and next action \\
 \midrule
@@ -415,12 +427,13 @@ Calibration and threshold utility & Not reported; add reliability and decision-c
 Subgroup fairness audit & Not reported; stratify by demographic and socioeconomic groups \\
 Clinical adjudication & Not available in the source table; compare with specialist labels \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \section{Limitations}
 The study has six limitations. The dataset is small and publicly sourced; its sampling process and label quality are not fully documented. The primary result comes from one hold-out split and therefore has no confidence interval. No independent hospital cohort or prospective evaluation is available. The labels do not include polysomnography-derived severity. The SHAP audit is exploratory and based on a limited background/sample design. Finally, the repository contains multiple experimental notebooks, so future work should consolidate the pipeline into a single version-controlled training script with a pre-registered evaluation protocol.
 
+\FloatBarrier
 \section{Conclusion}
 This study provides a substantially documented, explainable stacking baseline for multi-class sleep-disorder screening. The recorded Random Forest--XGBoost stack achieved 97.33\% accuracy and 0.96 macro-F1 on the available stratified hold-out set. Ten figures and four tables make the methodological path explicit, while the limitations prevent overinterpretation. The next scientific step is not to claim clinical readiness, but to test calibration, subgroup robustness, uncertainty, and external prospective validity against clinician-adjudicated outcomes.
 
@@ -430,8 +443,11 @@ The authors declare no known competing financial interests or personal relations
 \section*{Data availability}
 The analysis uses the Sleep Health and Lifestyle Dataset distributed through Kaggle \cite{kaggle2023}. The accompanying repository contains the dataset reference, notebooks, application code, and preprocessing artefacts.
 
+\FloatBarrier
+\begingroup\footnotesize
 \bibliographystyle{elsarticle-num}
 \bibliography{references}
+\endgroup
 \end{document}
 
 
