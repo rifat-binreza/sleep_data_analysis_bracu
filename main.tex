@@ -186,9 +186,9 @@ An 80:20 stratified partition with random seed 42 produced a development set of 
 \begin{tikzpicture}[node distance=6mm and 8mm]
 \node[box,text width=68mm] (raw) {Original demographic, behavioural, and physiological variables};
 \node[box,text width=68mm,below=of raw] (audit) {Identifier exclusion, category harmonisation, and data-type validation};
-\node[box,text width=52mm,below left=8mm and 5mm of audit] (num) {Numerical pathway\\blood-pressure decomposition and standardisation};
-\node[box,text width=52mm,below right=8mm and 5mm of audit] (cat) {Categorical pathway\\one-hot encoding of retained categories};
-\node[box,text width=70mm,below=27mm of audit] (out) {Model-ready feature matrix with a fixed column schema};
+\node[box,text width=44mm,below=10mm of audit,xshift=-27mm] (num) {Numerical pathway\\blood-pressure decomposition and standardisation};
+\node[box,text width=44mm,below=10mm of audit,xshift=27mm] (cat) {Categorical pathway\\one-hot encoding of retained categories};
+\node[box,text width=70mm,below=30mm of audit] (out) {Model-ready feature matrix with a fixed column schema};
 \draw[arrow] (raw)--(audit);
 \draw[arrow] (audit)--(num);
 \draw[arrow] (audit)--(cat);
@@ -395,6 +395,25 @@ Interpretation & Descriptive improvement; external validation required \\
 \includegraphics[width=0.88\linewidth]{model_comparison.png}
 \caption{Accuracy comparison of ANN ensembles, RF--XGBoost soft voting, and the proposed RF--XGBoost stacking model.}
 \label{fig:modelcomparison}
+\end{figure}
+
+\subsection{Post-hoc explanation results}
+Global SHAP analysis of the RF--XGBoost soft-voting comparator identified systolic blood pressure as the most influential variable, followed by body-mass-index category and physical-activity level (Fig.~\ref{fig:votingshap}). Sleep duration, age, and diastolic blood pressure formed a second tier of model dependence. These rankings quantify average absolute contributions to the fitted prediction function; they do not indicate the direction of association for an individual observation or establish a causal relationship with sleep-disorder status.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{voting_shap_importance.png}
+\caption{Global feature importance for the RF--XGBoost soft-voting comparator, expressed as mean absolute SHAP values across the explanation sample.}
+\label{fig:votingshap}
+\end{figure}
+
+The LIME explanation in Fig.~\ref{fig:votinglime} characterises the local decision surface around one test observation classified as insomnia. Lower physical activity, systolic blood pressure within 130--135, and an overweight body-mass-index category contributed positively to the local insomnia score, whereas the occupation and gender indicators contributed negatively. The explanation is observation-specific and should not be interpreted as a population-level risk model.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.80\linewidth]{voting_lime_sample0.png}
+\caption{Local LIME explanation for a representative test observation classified as insomnia by the RF--XGBoost soft-voting comparator. Green bars increase and red bars decrease the local class score.}
+\label{fig:votinglime}
 \end{figure}
 
 \begin{figure}[H]
