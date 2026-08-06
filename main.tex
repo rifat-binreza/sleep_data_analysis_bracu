@@ -1,0 +1,152 @@
+\documentclass[preprint,12pt]{elsarticle}
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+\journal{Machine Learning with Applications}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Explainable Ensemble Learning for Multi-class Sleep Disorder Screening from Lifestyle and Health Indicators}
+
+\author[bracu]{Author One\corref{cor1}}
+\ead{author@example.com}
+\cortext[cor1]{Corresponding author.}
+\address[bracu]{Department of Computer Science and Engineering, BRAC University, Dhaka, Bangladesh}
+
+\begin{abstract}
+Sleep disorders are clinically important but population-level screening is constrained by the cost and availability of polysomnography. This study develops an explainable machine-learning pipeline for three-class screening of sleep-disorder status (None, Insomnia, and Sleep Apnea) from routinely collected lifestyle and health indicators. The proposed system combines leakage-safe preprocessing with a tuned Random Forest--XGBoost stacking ensemble and a logistic-regression meta-learner. Model behaviour is examined with permutation-based SHAP explanations. On the available Sleep Health and Lifestyle dataset, a stratified 80:20 hold-out experiment (75 test observations) produced 97.33\% accuracy and a macro-F1 score of 0.96. Class-wise F1 scores were 0.93 for Insomnia, 1.00 for None, and 0.94 for Sleep Apnea. These results indicate that heterogeneous tree ensembles can provide a strong screening baseline; they do not constitute a clinical diagnosis. The manuscript explicitly reports the evaluation limitations and identifies external, prospective validation as the next step.
+\end{abstract}
+
+\begin{highlights}
+\item A reproducible preprocessing and stacking pipeline is presented for three-class sleep-disorder screening.
+\item Tuned Random Forest--XGBoost stacking achieved 97.33\% accuracy on the recorded hold-out experiment.
+\item Permutation-based SHAP analysis is used to support clinically interpretable model auditing.
+\item The study distinguishes screening performance from clinical diagnosis and reports validation limitations.
+\end{highlights}
+
+\begin{keyword}
+sleep disorder \sep insomnia \sep sleep apnea \sep stacking ensemble \sep XGBoost \sep explainable artificial intelligence
+\end{keyword}
+\end{frontmatter}
+
+\section{Introduction}
+Sleep health is associated with cardiometabolic, cognitive, and psychological outcomes. Yet screening systems based only on symptoms or self-reported indicators can be difficult to calibrate across populations. Machine-learning models can integrate heterogeneous demographic, behavioural, and physiological attributes, potentially supporting low-cost triage before specialist assessment. The important methodological requirement is that predictive performance must be measured without preprocessing leakage and reported with class-sensitive metrics.
+
+This work investigates a practical and explainable ensemble for the labels available in a public Sleep Health and Lifestyle dataset. The contributions are: (i) a single pipeline that handles mixed numerical and categorical variables; (ii) a tuned stacking classifier that combines Random Forest and XGBoost through a logistic meta-learner; (iii) three implementation algorithms that make preprocessing, prediction, and explanation auditable; and (iv) a transparent account of the limitations of the current single-dataset, single-split evaluation.
+
+\section{Related work}
+Random Forest aggregates decorrelated decision trees and is robust for tabular data \cite{breiman2001}. XGBoost provides regularised gradient-tree boosting and has become a strong baseline for structured clinical data \cite{chen2016}. Stacking learns how to combine base-model predictions rather than assigning a fixed vote \cite{wolpert1992}. For interpretability, SHAP formalises additive feature attributions and can be applied to black-box predictors through model-agnostic explainers \cite{lundberg2017}. These methods motivate the present design, while the use of a public lifestyle dataset means that the findings should be interpreted as screening evidence rather than diagnostic validation.
+
+\section{Materials and methods}
+\subsection{Dataset and target}
+The analysis uses the Sleep Health and Lifestyle Dataset distributed through Kaggle \cite{kaggle_sleep}. Each record contains demographic, occupational, sleep, activity, stress, BMI, blood-pressure, and heart-rate variables. The target, Sleep Disorder, is represented by three classes: None, Insomnia, and Sleep Apnea. The source notebook uses all 374 records. Missing target values are mapped to the ``None'' class following the dataset convention; 299 and 75 observations were then used for training and testing, respectively, with stratification and random seed 42.
+
+\subsection{Preprocessing}
+The identifier Person ID was excluded. The Blood Pressure string was decomposed into systolic and diastolic numerical variables. Categorical predictors were one-hot encoded with unknown categories ignored at inference, while numerical predictors were standardised using training-set statistics. The target was label encoded. All fitted transformations were placed inside the estimator pipeline so that test observations did not influence training transformations.
+
+\begin{algorithm}[t]
+\caption{Leakage-safe preprocessing}
+\label{alg:preprocess}
+\begin{algorithmic}[1]
+\Require Dataset $D$, target column $y$
+\Ensure Transformed training and test matrices $(X_{tr}',X_{te}')$
+\State Remove identifier fields and map missing target values to ``None''
+\State Split blood pressure into systolic and diastolic variables
+\State Stratify $D$ into $D_{tr}$ and $D_{te}$ using an 80:20 split
+\State Fit the numerical scaler and categorical encoder on $D_{tr}$ only
+\State Transform $D_{tr}$ and $D_{te}$ with the fitted transformers
+\State Encode target labels using the training label mapping
+\State \Return $(X_{tr}',X_{te}')$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Stacking ensemble}
+The base learners were a Random Forest with 100 trees and an XGBoost classifier with 800 estimators, learning rate 0.02, maximum depth 3, subsampling 0.9, column subsampling 0.9, minimum child weight 3, $\gamma=0.15$, and $\lambda=1.2$. Their class-probability vectors were passed to a logistic-regression meta-learner. In the training implementation, five-fold stratified cross-validation generated out-of-fold base predictions for the meta-learner.
+
+\begin{algorithm}[t]
+\caption{Tuned stacking prediction}
+\label{alg:stack}
+\begin{algorithmic}[1]
+\Require Preprocessed training data $(X_{tr}',y_{tr})$, test instance $x$
+\Ensure Predicted class $\hat y$
+\State Fit Random Forest $f_{RF}$ and XGBoost $f_{XGB}$ on $(X_{tr}',y_{tr})$
+\State Generate out-of-fold probabilities $P_{RF}$ and $P_{XGB}$ by stratified cross-validation
+\State Fit logistic meta-learner $g$ on $[P_{RF},P_{XGB}]$
+\State Obtain $p_{RF}=f_{RF}(x)$ and $p_{XGB}=f_{XGB}(x)$
+\State $\hat y \gets \arg\max_c g([p_{RF},p_{XGB}])_c$
+\State \Return $\hat y$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Explainability}
+To audit the final predictor, categorical values were mapped to a numerical representation only for the explanation interface. A small training background sample was supplied to a permutation-based SHAP explainer. For class $c$ and feature $j$, the mean absolute contribution over explained observations was used as a global importance score:
+\begin{equation}
+ I_j=\frac{1}{n}\sum_{i=1}^{n}\left|\phi_{ij}\right|,
+\end{equation}
+where $\phi_{ij}$ is the SHAP contribution of feature $j$ for observation $i$.
+
+\begin{algorithm}[t]
+\caption{Model-agnostic SHAP audit}
+\label{alg:shap}
+\begin{algorithmic}[1]
+\Require Fitted ensemble $F$, training matrix $X_{tr}$, explanation sample $X_e$
+\Ensure Ranked feature-importance vector $I$
+\State Draw a fixed background subset $B\subset X_{tr}$
+\State Define $h(z)=F(\operatorname{decode}(z))$ for encoded input $z$
+\State Initialise a permutation explainer with $h$ and background $B$
+\State Compute SHAP values $\Phi$ for $X_e$
+\State $I_j\gets \operatorname{mean}_i(|\Phi_{ij}|)$ for every feature $j$
+\State Sort features by decreasing $I_j$ and inspect the top-ranked variables
+\State \Return $I$
+\end{algorithmic}
+\end{algorithm}
+
+\section{Experimental design}
+Performance was measured on the held-out set using accuracy, precision, recall, and F1 score. Because the data are imbalanced, macro-averaged values are reported in addition to weighted averages. The experiment is deterministic under the stated random seed, but a single hold-out split cannot quantify uncertainty or replace external validation. The soft-voting model was retained as a secondary comparator because it was implemented in the same repository.
+
+\section{Results}
+Table~\ref{tab:results} reports the recorded test-set results. The tuned stacking model correctly classified 73 of 75 observations. Its two errors were Insomnia observations classified as Sleep Apnea. The secondary soft-voting experiment achieved 96.00\% accuracy, with one error in each class boundary shown by its confusion matrix.
+
+\begin{table}[t]
+\centering
+\caption{Recorded performance on the 75-observation stratified hold-out set.}
+\label{tab:results}
+\begin{tabular}{lcccc}
+\toprule
+Model / class & Precision & Recall & F1 & Accuracy \\
+\midrule
+Stacking--Insomnia & 1.00 & 0.87 & 0.93 & \\
+Stacking--None & 1.00 & 1.00 & 1.00 &  \\
+Stacking--Sleep Apnea & 0.89 & 1.00 & 0.94 & \\
+Stacking--macro average & 0.96 & 0.96 & 0.96 & 97.33\% \\
+Soft voting--macro average & 0.94 & 0.95 & 0.94 & 96.00\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Discussion}
+The result suggests that combining bagged and boosted trees can capture complementary nonlinear relationships in mixed lifestyle and health variables. The perfect test recall for Sleep Apnea is encouraging for screening, but it is not sufficient evidence of clinical safety: the test set is small, the labels are dataset-specific, and the same individuals or collection process may induce hidden correlations. The relatively lower Insomnia recall also shows why accuracy alone is inadequate. Calibration, subgroup analysis, repeated nested cross-validation, and external validation across hospitals and demographic groups are necessary before deployment.
+
+\section{Limitations and responsible use}
+The study has four principal limitations: the public dataset is small; evaluation is based on one random split; no polysomnography or clinician adjudication is available in the analysed table; and the explanation analysis is based on a limited sample. The model must therefore be presented as a research screening aid, never as a diagnostic or treatment recommendation. Future work should pre-register the evaluation protocol, report confidence intervals, assess calibration and decision-curve utility, and validate prospectively on independent clinical cohorts.
+
+\section{Conclusion}
+This paper presents an auditable Elsevier-style manuscript for explainable sleep-disorder screening with a Random Forest--XGBoost stacking ensemble. The repository result is 97.33\% hold-out accuracy and 0.96 macro-F1, exceeding the recorded soft-voting comparator. The principal scientific value is the reproducible pipeline and transparent limitation statement; clinical utility remains an open question requiring independent, prospective validation.
+
+\section*{Declaration of competing interest}
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+\section*{Data availability}
+The analysis uses the Sleep Health and Lifestyle Dataset cited below. Code and preprocessing notebooks are maintained in the accompanying repository.
+
+\bibliographystyle{elsarticle-num}
+\bibliography{references}
+\end{document}
