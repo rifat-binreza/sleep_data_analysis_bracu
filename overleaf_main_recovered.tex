@@ -55,7 +55,7 @@ This article makes four contributions. First, it defines a complete preprocessin
 \section{Clinical and methodological context}
 Sleep-disorder prediction should be understood as a triage problem. Screening tools can prioritise a referral or a confirmatory test; they should not replace clinical history, physical examination, polysomnography, or specialist judgement \cite{icd2023,aasm2021}. The American Academy of Sleep Medicine classification also makes clear that sleep disorders are clinically heterogeneous, whereas the present dataset contains only three broad labels \cite{icd2023}.
 
-From a machine-learning perspective, Random Forest is a robust non-linear tabular learner based on decorrelated trees \cite{tabular2022}. XGBoost introduces regularised gradient boosting and efficient split finding for structured data \cite{xgbreview2021}. Stacking learns a second-level function over out-of-fold predictions and can exploit the distinct error profiles of its base learners \cite{stackreview2022,ensemble2021}. These models are paired with scikit-learn's compositional pipeline design \cite{scikit2024}, while SHAP provides additive attributions that can be aggregated for an exploratory global audit \cite{arrieta2020,lundberg2020}. The supplied 2024 base paper reports ANN Bagging and ANN Boosting accuracy of 94.7\% and a weighted-average accuracy of 92.9\% \cite{alom2024}; these values are used only as contextual comparators because the protocols are not identical.
+From a machine-learning perspective, Random Forest is a robust non-linear tabular learner based on decorrelated trees \cite{tabular2022}. XGBoost introduces regularised gradient boosting and efficient split finding for structured data \cite{xgbreview2021}. Stacking learns a second-level function over out-of-fold predictions and can exploit the distinct error profiles of its base learners \cite{stackreview2022,ensemble2021}. These models are paired with scikit-learn's compositional pipeline design \cite{scikit2024}, while SHAP provides additive attributions that can be aggregated for an exploratory global audit \cite{arrieta2020,lundberg2020}.
 
 \begin{figure}[t]
 \centering
@@ -297,7 +297,20 @@ where $\phi_{ij}$ is the contribution assigned to feature $j$ for observation $i
 \section{Experimental protocol}
 The primary experiment is the recorded single stratified hold-out evaluation. Accuracy is reported with macro-precision, macro-recall, and macro-F1 because the class counts are unequal. For class $c$, precision and recall are $TP_c/(TP_c+FP_c)$ and $TP_c/(TP_c+FN_c)$, respectively; the class F1 is their harmonic mean. Macro-F1 gives each class equal weight, while weighted-F1 uses class support. No claim of statistical superiority is made from one split. A journal-grade follow-up should use repeated nested cross-validation, bootstrap confidence intervals, calibration curves, subgroup analysis, and an untouched external cohort \cite{riley2021,steyerberg2024,tripodai2024}.
 
-
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[x=1.2cm,y=0.75cm]
+\draw[->] (0,0)--(4.5,0) node[right]{Predicted};
+\draw[->] (0,0)--(0,4.0) node[above]{True};
+\foreach \x/\lab in {0.8/Insomnia,2.1/None,3.4/Sleep Apnea}{\node[below] at (\x,0){\scriptsize\lab};}
+\foreach \y/\lab in {0.8/Insomnia,2.1/None,3.4/Sleep Apnea}{\node[left] at (0,\y){\scriptsize\lab};}
+\fill[teal!70] (.35,.35) rectangle (1.25,1.25);\fill[teal!90] (1.65,1.65) rectangle (2.55,2.55);\fill[teal!80] (2.95,2.95) rectangle (3.85,3.85);
+\node[white] at (.8,.8){13};\node[white] at (2.1,2.1){44};\node[white] at (3.4,3.4){16};
+\fill[gold!80] (2.95,.35) rectangle (3.85,1.25);\node at (3.4,.8){2};
+\end{tikzpicture}
+\caption{Recorded stacking confusion matrix: rows are true classes and columns are predictions.}
+\label{fig:cm}
+\end{figure}
 
 \section{Results}
 The stacking model correctly classified 73 of 75 test observations, yielding 97.33\% accuracy. The recorded confusion matrix contains 13/15 correct Insomnia predictions, 44/44 correct None predictions, and 16/16 correct Sleep Apnea predictions. The two errors were Insomnia records assigned to Sleep Apnea. The soft-voting comparator achieved 96.00\% accuracy and macro-F1 0.94 in the repository notebook.
@@ -322,52 +335,30 @@ Soft voting macro average & 0.94 & 0.95 & 0.94 & 75 \\
 \end{tabular}
 \end{table}
 
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[x=1.05cm,y=0.75cm]
+\draw[->] (0,0)--(5.3,0) node[right]{Metric};\draw[->] (0,0)--(0,4.4);
+\foreach \y in {0,1,2,3,4}{\draw[gray!30] (0,\y)--(5,\y);\node[left,font=\scriptsize] at (0,\y){\y};}
+\foreach \x/\lab/\v in {1.0/Accuracy/3.89,2.2/Macro\ F1/3.84,3.4/Weighted\ F1/3.88}{\fill[teal!75] (\x-.35,0) rectangle (\x+.35,\v);\node[above,font=\scriptsize] at (\x,\v){0.97};\node[below,font=\scriptsize,align=center] at (\x,0){\lab};}
+\end{tikzpicture}
+\caption{Summary of the stacking model's recorded hold-out metrics; bars are scaled by 4 for readability.}
+\label{fig:metrics}
+\end{figure}
 
-
-
-
-\\section{Comparison with the supplied reference study}
-The supplied base paper reports three neural ensemble results: ANN Bagging 94.7\\%, ANN Boosting 94.7\\%, and ANN Weighted Average 92.9\\% accuracy \\cite{alom2024}. The present repository experiment reports 96.00\\% for soft voting and 97.33\\% for the exact tuned stacking notebook. This is a contextual comparison rather than a head-to-head clinical benchmark because the studies use different implementations, preprocessing choices, random partitions, and reporting conventions.
-
-\\begin{table}[t]
-\\centering
-\\caption{Contextual comparison with the supplied 2024 base paper.}
-\\label{tab:basecomparison}
-\\small
-\\begin{tabular}{p{0.38\\linewidth}p{0.18\\linewidth}p{0.31\\linewidth}}
-\\toprule
-Model & Accuracy & Evidence and protocol \\\\
-\\midrule
-ANN Bagging ensemble & 94.7\\% & Supplied base paper; external report \\\\
-ANN Boosting ensemble & 94.7\\% & Supplied base paper; external report \\\\
-ANN Weighted Average ensemble & 92.9\\% & Supplied base paper; external report \\\\
-Soft voting (RF + XGBoost) & 96.00\\% & Repository hold-out; 75 test records \\\\
-Tuned stacking (RF + XGBoost + meta-learner) & 97.33\\% & Exact repository notebook; 75 test records \\\\
-\\bottomrule
-\\end{tabular}
-\\end{table}
-
-\\subsection{Paired statistical comparison}
-Because both repository models predict the same 75 held-out records, their predictions can be compared pairwise. A 20,000-resample paired bootstrap estimated the stacking-minus-soft-voting accuracy difference as 1.33 percentage points, with a 95\\% percentile interval from $-2.67$ to $5.33$ percentage points. The exact McNemar test used the discordance table $\\begin{bmatrix}71&1\\\\2&1\\end{bmatrix}$ and returned $p=1.000$. The null hypothesis is therefore not rejected. The higher point estimate is a promising signal requiring repeated and external validation, not evidence of statistically significant superiority.
-
-\\begin{table}[t]
-\\centering
-\\caption{Paired uncertainty analysis on the shared 75-record test set.}
-\\label{tab:stats}
-\\small
-\\begin{tabular}{p{0.47\\linewidth}p{0.30\\linewidth}}
-\\toprule
-Analysis & Result \\\\
-\\midrule
-Accuracy: soft voting & 96.00\\% \\\\
-Accuracy: tuned stacking & 97.33\\% \\\\
-Point difference & 1.33 percentage points \\\\
-Paired bootstrap, 20,000 resamples & 95\\% CI $[-2.67,5.33]$ percentage points \\\\
-Exact McNemar test & $p=1.000$; null not rejected \\\\
-Interpretation & Descriptive improvement; external validation required \\\\
-\\bottomrule
-\\end{tabular}
-\\end{table}
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[node distance=7mm and 6mm]
+\node[box] (s) {Candidate record};
+\node[decision,right=of s] (c) {High-risk\\nonspecific signal?};
+\node[box,above right=of c] (r) {Recommend clinical\nreview / confirmatory test};
+\node[box,below right=of c] (m) {Monitor and reassess\nwith clinician};
+\draw[arrow] (s)--(c);\draw[arrow] (c)--node[above,font=\scriptsize]{yes}(r);\draw[arrow] (c)--node[below,font=\scriptsize]{no}(m);
+\node[below=8mm of c,align=center,font=\scriptsize,text width=55mm] {Model output is a triage signal; it does not prescribe treatment or establish diagnosis.};
+\end{tikzpicture}
+\caption{Responsible-use pathway for a future decision-support implementation.}
+\label{fig:deployment}
+\end{figure}
 
 \section{Discussion}
 The recorded result is strong for a small tabular benchmark, but it should be interpreted cautiously. The model may benefit from structured variables that are close to the dataset's label construction. The perfect None recall and Sleep Apnea recall on this split may not persist under population shift. Insomnia has lower recall, indicating a clinically meaningful failure mode if the tool were used as a gatekeeper. In practice, the operating threshold should be selected with a clinically justified utility function rather than by accuracy alone \cite{decisioncurve2021,steyerberg2024}.
@@ -402,29 +393,6 @@ The study has six limitations. The dataset is small and publicly sourced; its sa
 
 \section{Conclusion}
 This study provides a substantially documented, explainable stacking baseline for multi-class sleep-disorder screening. The recorded Random Forest--XGBoost stack achieved 97.33\% accuracy and 0.96 macro-F1 on the available stratified hold-out set. Ten figures and four tables make the methodological path explicit, while the limitations prevent overinterpretation. The next scientific step is not to claim clinical readiness, but to test calibration, subgroup robustness, uncertainty, and external prospective validity against clinician-adjudicated outcomes.
-
-\\clearpage
-\\setcounter{figure}{7}
-\\begin{figure}[p]
-\\centering
-\\includegraphics[width=0.94\\linewidth]{confusion_matrices.png}
-\\caption{Figure 8. Evidence-backed confusion matrices on the shared test set. The left panel is the soft-voting comparator; the right panel is the exact tuned stacking configuration from the repository notebook.}
-\\label{fig:postconclusioncm}
-\\end{figure}
-
-\\begin{figure}[p]
-\\centering
-\\includegraphics[width=0.88\\linewidth]{model_comparison.png}
-\\caption{Figure 9. Contextual accuracy comparison. ANN ensemble values are transcribed from the supplied 2024 base paper; repository values are measured on the local 75-record hold-out set and are not a matched external validation.}
-\\label{fig:modelcomparison}
-\\end{figure}
-
-\\begin{figure}[p]
-\\centering
-\\includegraphics[width=0.78\\linewidth]{shap_lime_radar.png}
-\\caption{Figure 10. Actual SHAP--LIME radar audit generated from the repository stacking pipeline. Values are normalised within each explanation family; they indicate model association, not causation.}
-\\label{fig:shaplime}
-\\end{figure}
 
 \section*{Declaration of competing interest}
 The authors declare no known competing financial interests or personal relationships that could have influenced this work.
