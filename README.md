@@ -1,3 +1,13 @@
+---
+title: Sleep Intelligence Lab
+emoji: 🌙
+colorFrom: violet
+colorTo: cyan
+sdk: gradio
+app_file: app.py
+pinned: false
+---
+
 <div align="center">
   <img src="assets/banner.svg" width="100%" alt="Sleep Intelligence banner" />
 

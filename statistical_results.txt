@@ -1,0 +1,1 @@
+Accuracy stacking=0.973333; soft=0.960000; difference=0.013333; bootstrap95=[-0.026667,0.053333]; McNemar table=[[71, 1], [2, 1]]; exact p=1.000000; statistic=1.0
