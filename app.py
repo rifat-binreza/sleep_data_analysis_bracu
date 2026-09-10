@@ -1,177 +1,282 @@
 from __future__ import annotations
 
+import os
 from functools import lru_cache
 from pathlib import Path
-from typing import Any
+from typing import Any, Dict, List, Tuple
 
 import gradio as gr
 import pandas as pd
+from lightgbm import LGBMClassifier
 from sklearn.compose import ColumnTransformer
-from sklearn.ensemble import RandomForestClassifier, VotingClassifier
+from sklearn.ensemble import RandomForestClassifier, StackingClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import StratifiedKFold
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
-from xgboost import XGBClassifier
-
 
 DATA_FILE = "Sleep_health_and_lifestyle_dataset (1).csv"
-TARGET_COLUMN = "Sleep Disorder"
 
 
-def load_and_clean_data() -> pd.DataFrame:
-    """Load and apply the same feature preparation used in voting_cls.ipynb."""
-    data_path = Path(__file__).resolve().parent / DATA_FILE
-    if not data_path.exists():
-        raise FileNotFoundError(
-            f"Dataset not found: {data_path}. Upload {DATA_FILE} to the Space repository."
-        )
+def _dataset_path() -> Path:
+    return Path(__file__).resolve().parent / DATA_FILE
 
-    df = pd.read_csv(data_path).copy()
-    df[TARGET_COLUMN] = df[TARGET_COLUMN].fillna("None")
 
-    df = df.drop(columns=["Person ID"], errors="ignore")
+def _load_raw_data() -> pd.DataFrame:
+    path = _dataset_path()
+    if not path.exists():
+        raise FileNotFoundError(f"Dataset not found at {path}")
+    return pd.read_csv(path)
+
+
+def _clean_dataset(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
+    if "Person ID" in df.columns:
+        df.drop(columns=["Person ID"], inplace=True)
+
     if "BMI Category" in df.columns:
         df["BMI Category"] = df["BMI Category"].replace({"Normal Weight": "Normal"})
 
     if "Blood Pressure" in df.columns:
-        blood_pressure = df["Blood Pressure"].astype(str).str.split("/", expand=True)
-        df["Systolic_BP"] = pd.to_numeric(blood_pressure[0], errors="coerce")
-        df["Diastolic_BP"] = pd.to_numeric(blood_pressure[1], errors="coerce")
-        df = df.drop(columns=["Blood Pressure"])
+        bp = df["Blood Pressure"].astype(str).str.split("/", expand=True)
+        df["Systolic_BP"] = pd.to_numeric(bp[0], errors="coerce")
+        df["Diastolic_BP"] = pd.to_numeric(bp[1], errors="coerce")
+        df.drop(columns=["Blood Pressure"], inplace=True)
 
-    return df.dropna().reset_index(drop=True)
+    if "Sleep Disorder" in df.columns:
+        df["Sleep Disorder"] = df["Sleep Disorder"].fillna("None")
+
+    # Feature engineering: BMI risk score
+    if "BMI Category" in df.columns:
+        bmi_risk = {"Normal": 0, "Overweight": 1, "Obese": 2}
+        df["BMI_Risk_Score"] = df["BMI Category"].map(bmi_risk).fillna(0)
+
+    # Feature engineering: Age groups
+    if "Age" in df.columns:
+        df["Age_Group"] = pd.cut(
+            df["Age"],
+            bins=[0, 30, 40, 50, 100],
+            labels=["Young", "Adult", "Middle", "Senior"],
+        ).astype(str)
+
+    # Feature engineering: Sleep quality ratio
+    if "Quality of Sleep" in df.columns and "Sleep Duration" in df.columns:
+        df["Sleep_Efficiency"] = df["Quality of Sleep"] / df["Sleep Duration"]
+
+    # Feature engineering: Stress-Physical activity balance
+    if "Stress Level" in df.columns and "Physical Activity Level" in df.columns:
+        df["Stress_Activity_Ratio"] = df["Stress Level"] / (df["Physical Activity Level"] + 1)
+
+    return df
 
 
-def build_voting_model(X: pd.DataFrame, y: pd.Series) -> Pipeline:
-    """Build the Random Forest + XGBoost soft-voting pipeline from the notebook."""
-    categorical_columns = X.select_dtypes(include=["object"]).columns.tolist()
-    numerical_columns = X.select_dtypes(exclude=["object"]).columns.tolist()
+def _build_preprocessor(X: pd.DataFrame) -> Tuple[ColumnTransformer, List[str], List[str]]:
+    categorical_cols = X.select_dtypes(include=["object"]).columns.tolist()
+    numerical_cols = X.select_dtypes(exclude=["object"]).columns.tolist()
 
     preprocessor = ColumnTransformer(
         transformers=[
-            ("num", StandardScaler(), numerical_columns),
-            ("cat", OneHotEncoder(handle_unknown="ignore"), categorical_columns),
+            ("num", StandardScaler(), numerical_cols),
+            ("cat", OneHotEncoder(handle_unknown="ignore"), categorical_cols),
         ]
     )
 
-    random_forest = RandomForestClassifier(n_estimators=200, random_state=42)
-    xgboost = XGBClassifier(
-        n_estimators=200,
-        learning_rate=0.05,
-        max_depth=5,
-        eval_metric="mlogloss",
+    return preprocessor, categorical_cols, numerical_cols
+
+
+def _build_model(X: pd.DataFrame, y: pd.Series) -> Pipeline:
+    preprocessor, _, _ = _build_preprocessor(X)
+
+    rf = RandomForestClassifier(
+        n_estimators=300,
+        max_depth=10,
+        min_samples_split=5,
+        min_samples_leaf=2,
         random_state=42,
+        n_jobs=-1
     )
-    voting_classifier = VotingClassifier(
-        estimators=[("rf", random_forest), ("xgb", xgboost)],
-        voting="soft",
+    lgb = LGBMClassifier(
+        n_estimators=300,
+        learning_rate=0.03,
+        max_depth=6,
+        num_leaves=31,
+        subsample=0.8,
+        colsample_bytree=0.8,
+        random_state=42,
+        n_jobs=-1,
+        verbose=-1
+    )
+
+    stack_clf = StackingClassifier(
+        estimators=[("rf", rf), ("lgb", lgb)],
+        final_estimator=LogisticRegression(max_iter=4000, C=1.0),
+        stack_method="predict_proba",
+        n_jobs=-1,
+        cv=StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     )
 
     model = Pipeline(
-        steps=[("preprocessor", preprocessor), ("classifier", voting_classifier)]
+        [
+            ("preprocessor", preprocessor),
+            ("classifier", stack_clf),
+        ]
     )
+
     model.fit(X, y)
     return model
 
 
+def _numeric_step(series: pd.Series) -> float:
+    values = pd.to_numeric(series, errors="coerce").dropna()
+    if values.empty:
+        return 1.0
+    is_int = values.apply(lambda v: float(v).is_integer()).all()
+    return 1.0 if is_int else 0.1
+
+
+def _numeric_stats(series: pd.Series) -> Tuple[float, float, float, float]:
+    values = pd.to_numeric(series, errors="coerce").dropna()
+    if values.empty:
+        return 0.0, 1.0, 0.5, 0.1
+    min_val = float(values.min())
+    max_val = float(values.max())
+    median_val = float(values.median())
+    if min_val == max_val:
+        min_val -= 1.0
+        max_val += 1.0
+    return min_val, max_val, median_val, _numeric_step(values)
+
+
 @lru_cache(maxsize=1)
-def get_artifacts() -> dict[str, Any]:
-    df = load_and_clean_data()
-    X = df.drop(columns=[TARGET_COLUMN])
+def _artifacts() -> Dict[str, Any]:
+    raw_df = _load_raw_data()
+    df = _clean_dataset(raw_df)
+
+    X = df.drop(columns=["Sleep Disorder"])
+    y = df["Sleep Disorder"]
 
     label_encoder = LabelEncoder()
-    y = label_encoder.fit_transform(df[TARGET_COLUMN])
-    model = build_voting_model(X, y)
+    y_encoded = label_encoder.fit_transform(y)
 
-    categorical_columns = X.select_dtypes(include=["object"]).columns.tolist()
-    numerical_columns = X.select_dtypes(exclude=["object"]).columns.tolist()
-    categorical_choices = {
-        column: sorted(X[column].astype(str).unique().tolist())
-        for column in categorical_columns
-    }
-    numerical_defaults = {
-        column: {
-            "minimum": float(X[column].min()),
-            "maximum": float(X[column].max()),
-            "value": float(X[column].median()),
-            "step": 1 if pd.api.types.is_integer_dtype(X[column]) else 0.1,
-        }
-        for column in numerical_columns
-    }
+    model = _build_model(X, y_encoded)
+
+    feature_columns = X.columns.tolist()
+    categorical_cols = X.select_dtypes(include=["object"]).columns.tolist()
+    numerical_cols = X.select_dtypes(exclude=["object"]).columns.tolist()
+
+    categorical_options: Dict[str, List[str]] = {}
+    for col in categorical_cols:
+        values = X[col].dropna().astype(str).unique().tolist()
+        categorical_options[col] = sorted(values)
+
+    numeric_info: Dict[str, Tuple[float, float, float, float]] = {}
+    for col in numerical_cols:
+        numeric_info[col] = _numeric_stats(X[col])
 
     return {
         "model": model,
         "label_encoder": label_encoder,
-        "feature_columns": X.columns.tolist(),
-        "categorical_choices": categorical_choices,
-        "numerical_defaults": numerical_defaults,
-        "examples": X.sample(n=min(3, len(X)), random_state=42).values.tolist(),
+        "feature_columns": feature_columns,
+        "categorical_options": categorical_options,
+        "numeric_info": numeric_info,
     }
 
 
-def predict_sleep_disorder(*values: Any) -> tuple[str, dict[str, float]]:
-    artifacts = get_artifacts()
-    input_df = pd.DataFrame([values], columns=artifacts["feature_columns"])
-
+def predict_sleep_disorder(*inputs: Any) -> Tuple[str, Dict[str, float]]:
+    artifacts = _artifacts()
     model: Pipeline = artifacts["model"]
     label_encoder: LabelEncoder = artifacts["label_encoder"]
-    prediction = int(model.predict(input_df)[0])
-    probabilities = model.predict_proba(input_df)[0]
+    feature_columns: List[str] = artifacts["feature_columns"]
 
-    label = label_encoder.inverse_transform([prediction])[0]
-    class_names = label_encoder.inverse_transform(range(len(probabilities)))
-    scores = {
-        str(class_name): float(probability)
-        for class_name, probability in zip(class_names, probabilities)
-    }
-    return str(label), scores
+    input_dict = {col: val for col, val in zip(feature_columns, inputs)}
+    input_df = pd.DataFrame([input_dict])
+
+    pred_encoded = model.predict(input_df)[0]
+    pred_label = label_encoder.inverse_transform([pred_encoded])[0]
+
+    proba = model.predict_proba(input_df)[0]
+    classes = label_encoder.inverse_transform(list(range(len(proba))))
+    scores = {str(cls): float(score) for cls, score in zip(classes, proba)}
+    scores = dict(sorted(scores.items(), key=lambda item: item[1], reverse=True))
+
+    return str(pred_label), scores
 
 
-def build_inputs() -> list[gr.Component]:
-    artifacts = get_artifacts()
-    categorical_choices = artifacts["categorical_choices"]
-    numerical_defaults = artifacts["numerical_defaults"]
+def _build_inputs() -> List[gr.components.Component]:
+    artifacts = _artifacts()
+    feature_columns: List[str] = artifacts["feature_columns"]
+    categorical_options: Dict[str, List[str]] = artifacts["categorical_options"]
+    numeric_info: Dict[str, Tuple[float, float, float, float]] = artifacts["numeric_info"]
 
-    inputs: list[gr.Component] = []
-    for column in artifacts["feature_columns"]:
-        if column in categorical_choices:
-            choices = categorical_choices[column]
-            inputs.append(gr.Dropdown(choices=choices, value=choices[0], label=column))
+    components: List[gr.components.Component] = []
+    for col in feature_columns:
+        if col in categorical_options:
+            choices = categorical_options[col]
+            default_value = choices[0] if choices else ""
+            components.append(
+                gr.Dropdown(choices=choices, value=default_value, label=col)
+            )
         else:
-            settings = numerical_defaults[column]
-            inputs.append(gr.Slider(label=column, **settings))
-    return inputs
+            min_val, max_val, median_val, step = numeric_info[col]
+            components.append(
+                gr.Slider(
+                    minimum=min_val,
+                    maximum=max_val,
+                    value=median_val,
+                    step=step,
+                    label=col,
+                )
+            )
+    return components
 
 
-with gr.Blocks(title="Sleep Disorder Prediction") as demo:
+THEME_CSS = """
+.gradio-container {max-width: 1180px !important; margin: auto !important;}
+.hero {padding: 2rem; border-radius: 22px; color: white; margin-bottom: 1rem;
+  background: linear-gradient(135deg, #11183a, #39176b 55%, #07566b);}
+.hero h1 {font-size: 2.5rem; margin: 0 0 .4rem;}
+.hero p {color: #cffafe; margin: 0; font-size: 1.05rem;}
+#predict-button {background: linear-gradient(90deg, #7c3aed, #0891b2); color: white; border: 0;}
+"""
+
+with gr.Blocks(
+    title="Sleep Intelligence Lab",
+    theme=gr.themes.Soft(primary_hue="violet", secondary_hue="cyan"),
+    css=THEME_CSS,
+) as demo:
+    gr.HTML(
+        """
+        <section class="hero">
+          <h1>🌙 Sleep Intelligence Lab</h1>
+          <p>AI-powered sleep disorder screening with transparent class probabilities.</p>
+        </section>
+        """
+    )
     gr.Markdown(
-        """
-        # Sleep Disorder Prediction
-        Enter lifestyle and biometric information to obtain a prediction from the
-        Random Forest + XGBoost soft-voting model.
-
-        *For educational use only; this is not medical advice or a clinical diagnosis.*
-        """
+        "Adjust the lifestyle and biometric signals, then run the stacking ensemble. "
+        "**For research use only — not a medical diagnosis.**"
     )
 
-    with gr.Row():
-        with gr.Column():
-            inputs = build_inputs()
-            predict_button = gr.Button("Predict Sleep Disorder", variant="primary")
-        with gr.Column():
+    with gr.Row(equal_height=False):
+        with gr.Column(scale=3):
+            gr.Markdown("### Your health signals")
+            inputs = _build_inputs()
+        with gr.Column(scale=2):
+            gr.Markdown("### Prediction")
             predicted_label = gr.Textbox(label="Predicted Sleep Disorder")
-            probabilities = gr.Label(label="Class Probabilities", num_top_classes=3)
+            prediction_scores = gr.Label(label="Confidence by class", num_top_classes=3)
 
-    gr.Examples(
-        examples=get_artifacts()["examples"],
-        inputs=inputs,
-        label="Try an example",
-    )
-    predict_button.click(
+    predict_btn = gr.Button("Analyze sleep profile", variant="primary", elem_id="predict-button")
+    predict_btn.click(
         fn=predict_sleep_disorder,
         inputs=inputs,
-        outputs=[predicted_label, probabilities],
+        outputs=[predicted_label, prediction_scores],
     )
 
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(
+        server_name=os.getenv("HOST", "0.0.0.0"),
+        server_port=int(os.getenv("PORT", "7860")),
+        share=os.getenv("GRADIO_SHARE", "false").lower() == "true",
+    )
