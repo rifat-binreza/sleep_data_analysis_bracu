@@ -1,19 +1,19 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
+import os
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 import gradio as gr
 import pandas as pd
+from lightgbm import LGBMClassifier
 from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestClassifier, StackingClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import cross_val_score, StratifiedKFold
+from sklearn.model_selection import StratifiedKFold
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
-from sklearn.metrics import accuracy_score, classification_report
-from xgboost import XGBClassifier
 
 DATA_FILE = "Sleep_health_and_lifestyle_dataset (1).csv"
 
@@ -45,20 +45,24 @@ def _clean_dataset(df: pd.DataFrame) -> pd.DataFrame:
 
     if "Sleep Disorder" in df.columns:
         df["Sleep Disorder"] = df["Sleep Disorder"].fillna("None")
-    
+
     # Feature engineering: BMI risk score
     if "BMI Category" in df.columns:
         bmi_risk = {"Normal": 0, "Overweight": 1, "Obese": 2}
         df["BMI_Risk_Score"] = df["BMI Category"].map(bmi_risk).fillna(0)
-    
+
     # Feature engineering: Age groups
     if "Age" in df.columns:
-        df["Age_Group"] = pd.cut(df["Age"], bins=[0, 30, 40, 50, 100], labels=["Young", "Adult", "Middle", "Senior"]).astype(str)
-    
+        df["Age_Group"] = pd.cut(
+            df["Age"],
+            bins=[0, 30, 40, 50, 100],
+            labels=["Young", "Adult", "Middle", "Senior"],
+        ).astype(str)
+
     # Feature engineering: Sleep quality ratio
     if "Quality of Sleep" in df.columns and "Sleep Duration" in df.columns:
         df["Sleep_Efficiency"] = df["Quality of Sleep"] / df["Sleep Duration"]
-    
+
     # Feature engineering: Stress-Physical activity balance
     if "Stress Level" in df.columns and "Physical Activity Level" in df.columns:
         df["Stress_Activity_Ratio"] = df["Stress Level"] / (df["Physical Activity Level"] + 1)
@@ -226,23 +230,43 @@ def _build_inputs() -> List[gr.components.Component]:
     return components
 
 
-with gr.Blocks(title="Sleep Disorder Prediction (Stacking Model)") as demo:
-    gr.Markdown(
+THEME_CSS = """
+.gradio-container {max-width: 1180px !important; margin: auto !important;}
+.hero {padding: 2rem; border-radius: 22px; color: white; margin-bottom: 1rem;
+  background: linear-gradient(135deg, #11183a, #39176b 55%, #07566b);}
+.hero h1 {font-size: 2.5rem; margin: 0 0 .4rem;}
+.hero p {color: #cffafe; margin: 0; font-size: 1.05rem;}
+#predict-button {background: linear-gradient(90deg, #7c3aed, #0891b2); color: white; border: 0;}
+"""
+
+with gr.Blocks(
+    title="Sleep Intelligence Lab",
+    theme=gr.themes.Soft(primary_hue="violet", secondary_hue="cyan"),
+    css=THEME_CSS,
+) as demo:
+    gr.HTML(
         """
-        # Sleep Disorder Prediction
-        This app uses a stacking ensemble (Random Forest + XGBoost with Logistic Regression)
-        to predict sleep disorder categories based on lifestyle and biometric inputs.
+        <section class="hero">
+          <h1>🌙 Sleep Intelligence Lab</h1>
+          <p>AI-powered sleep disorder screening with transparent class probabilities.</p>
+        </section>
         """
     )
+    gr.Markdown(
+        "Adjust the lifestyle and biometric signals, then run the stacking ensemble. "
+        "**For research use only — not a medical diagnosis.**"
+    )
 
-    with gr.Row():
-        with gr.Column():
+    with gr.Row(equal_height=False):
+        with gr.Column(scale=3):
+            gr.Markdown("### Your health signals")
             inputs = _build_inputs()
-        with gr.Column():
+        with gr.Column(scale=2):
+            gr.Markdown("### Prediction")
             predicted_label = gr.Textbox(label="Predicted Sleep Disorder")
-            prediction_scores = gr.Label(label="Class Probabilities")
+            prediction_scores = gr.Label(label="Confidence by class", num_top_classes=3)
 
-    predict_btn = gr.Button("Predict")
+    predict_btn = gr.Button("Analyze sleep profile", variant="primary", elem_id="predict-button")
     predict_btn.click(
         fn=predict_sleep_disorder,
         inputs=inputs,
@@ -251,4 +275,8 @@ with gr.Blocks(title="Sleep Disorder Prediction (Stacking Model)") as demo:
 
 
 if __name__ == "__main__":
-    demo.launch(share="True")
+    demo.launch(
+        server_name=os.getenv("HOST", "0.0.0.0"),
+        server_port=int(os.getenv("PORT", "7860")),
+        share=os.getenv("GRADIO_SHARE", "false").lower() == "true",
+    )
